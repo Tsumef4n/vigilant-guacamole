@@ -6,12 +6,14 @@
 
 $app->get('/contact', function ($request, $response, $args) {
     return $this->view->render($response, 'contact.twig', [
-        'title' => "Kontaktformular"
+        'title' => "Kontaktformular",
+        'active' => "contact",
     ]);
 })->setName('contact');
 
 $app->get('/', function ($request, $response, $args) {
-    return $this->view->render($response, 'home.twig', [
-        'title' => "Titel der Webseite"
+    return $this->view->render($response, 'welcome.twig', [
+        'title' => "Willkommen im Schüsterwinkel!",
+        'active' => "welcome",
     ]);
-})->setName('homepage');
+})->setName('welcome');
