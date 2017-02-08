@@ -1,0 +1,15 @@
+{
+    "name": "tsume/projektarbeit",
+    "authors": [
+        {
+            "name": "Tsume",
+            "email": "tsumef4n@yahoo.de"
+        }
+    ],
+    "require": {
+        "slim/slim": "^3.7",
+        "slim/twig-view": "^2.2",
+        "slim/flash": "^0.2.0",
+        "monolog/monolog": "^1.22"
+    }
+}
