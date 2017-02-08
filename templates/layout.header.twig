@@ -1,0 +1,25 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ title|default('Schüsterwinkel - TSBW Shop') }}</title>
+  <meta name="description" content="Schüsterwinkel - TSBW Shop">
+  <meta name="author" content="TSBW Husum">
+  <link rel="stylesheet" href="{{ base_url() }}/css/master.css">
+  <link href='http://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'> <!--TODO: Lokal speichern-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="{{ base_url() }}/js/global.js"></script>
+</head>
+
+<body>
+  <header>
+    <h1>Schüsterwinkel - TSBW Shop</h1>
+    <nav>
+      <a href="{{ base_url() }}" class="{% if active == 'welcome' %}selected{% endif %}">Willkommen</a>
+      <a href="#" class="{% if active == 'unique' %}selected{% endif %}">Besonderheit</a>
+      <a href="#">Öffnungszeiten</a>
+      <a href="#">Warenangebot</a>
+      <a href="{{ path_for('contact') }}" class="{% if active == 'contact' %}selected{% endif %}">Kontakt</a>
+    </nav>
+  </header>
