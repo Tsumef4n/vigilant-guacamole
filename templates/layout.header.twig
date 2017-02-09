@@ -3,23 +3,37 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>{{ title|default('Schüsterwinkel - TSBW Shop') }}</title>
-  <meta name="description" content="Schüsterwinkel - TSBW Shop">
+  <title>{{ title|default('TSBW Shop') }} | Schnüsterwinkel</title>
+  <meta name="description" content="Schnüsterwinkel - TSBW Shop">
   <meta name="author" content="TSBW Husum">
+  <link rel="stylesheet" href="{{ base_url() }}/css/bootstrap.css">
+  <link rel="stylesheet" href="{{ base_url() }}/css/bootstrap-theme.css">
   <link rel="stylesheet" href="{{ base_url() }}/css/master.css">
+  <link rel="stylesheet" href="{{ base_url() }}/css/carousel.css">
   <link href='http://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'> <!--TODO: Lokal speichern-->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script src="{{ base_url() }}/js/global.js"></script>
 </head>
 
 <body>
-  <header>
-    <h1>Schüsterwinkel - TSBW Shop</h1>
-    <nav>
-      <a href="{{ base_url() }}" class="{% if active == 'welcome' %}selected{% endif %}">Willkommen</a>
-      <a href="#" class="{% if active == 'unique' %}selected{% endif %}">Besonderheit</a>
-      <a href="#">Öffnungszeiten</a>
-      <a href="#">Warenangebot</a>
-      <a href="{{ path_for('contact') }}" class="{% if active == 'contact' %}selected{% endif %}">Kontakt</a>
-    </nav>
-  </header>
+  <!-- navbar -->
+      <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Schnüsterwinkel - TSBW Shop</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="{{ base_url() }}" class="{% if active == 'welcome' %}selected{% endif %}">Willkommen</a></li>
+              <li><a href="#">Öffnungszeiten</a></li>
+              <li><a href="#">Warenangebot</a></li>
+              <li><a href="{{ path_for('contact') }}" class="{% if active == 'contact' %}selected{% endif %}">Kontakt</a></li>
+
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container -->
+      </nav>

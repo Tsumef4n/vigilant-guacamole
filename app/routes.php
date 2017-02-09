@@ -13,7 +13,7 @@ $app->get('/contact', function ($request, $response, $args) {
 
 $app->get('/', function ($request, $response, $args) {
     return $this->view->render($response, 'welcome.twig', [
-        'title' => "Willkommen im Schüsterwinkel!",
+        'title' => "Willkommen",
         'active' => "welcome",
     ]);
 })->setName('welcome');
