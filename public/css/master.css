@@ -2,6 +2,11 @@
     box-sizing: border-box;
 }
 
+#googleMap {
+    width: 100%; /* Span the entire width */
+    height: 500px; /* Set the height to 500 pixels */
+}
+
 body {
   background: #fdfdfd;
   font-family: 'Roboto', sans-serif;

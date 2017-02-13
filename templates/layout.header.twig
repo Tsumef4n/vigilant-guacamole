@@ -24,14 +24,14 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Schnüsterwinkel - TSBW Shop</a>
+            <div class="navbar-brand">Schnüsterwinkel - TSBW Shop</div>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="{{ base_url() }}" class="{% if active == 'welcome' %}selected{% endif %}">Willkommen</a></li>
-              <li><a href="#">Öffnungszeiten</a></li>
+              <li class="{% if active == 'welcome' %}active{% endif %}"><a href="{{ base_url() }}" class="{% if active == 'welcome' %}selected{% endif %}">Willkommen</a></li>
+              <li class="{% if active == 'approach' %}active{% endif %}"><a href="{{ path_for('approach') }}" class="{% if active == 'approach' %}selected{% endif %}">Anfahrt & Öffnungszeiten</a></li>
               <li><a href="#">Warenangebot</a></li>
-              <li><a href="{{ path_for('contact') }}" class="{% if active == 'contact' %}selected{% endif %}">Kontakt</a></li>
+              <li class="{% if active == 'contact' %}active{% endif %}"><a href="{{ path_for('contact') }}" class="{% if active == 'contact' %}selected{% endif %}">Kontakt</a></li>
 
             </ul>
           </div><!--/.nav-collapse -->
