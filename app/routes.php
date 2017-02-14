@@ -1,8 +1,6 @@
 <?php
 // Routes
 
-// $app->get('/', App\Action\HomeAction::class)
-//     ->setName('homepage');
 
 $app->get('/login', function ($request, $response, $args) {
     return $this->view->render($response, 'login.twig', [
