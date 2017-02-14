@@ -3,7 +3,7 @@
 
 
 $app->get('/login', function ($request, $response, $args) {
-    return $this->view->render($response, 'login.twig', [
+    return $this->view->render($response, 'auth/login.twig', [
         'title' => "Login",
         'active' => "login",
     ]);
@@ -36,5 +36,8 @@ $app->get('/approach', function ($request, $response, $args) {
 //         'active' => "welcome",
 //     ]);
 // })->setName('welcome');
+
+$app->get('/auth/register', 'AuthController:getRegister')->setName('auth.register');
+$app->post('/auth/register', 'AuthController:postRegister');
 
 $app->get('/', 'HomeController:index')->setName('welcome');
