@@ -3,7 +3,7 @@ return [
     'settings' => [
         // Slim Settings
         'determineRouteBeforeAppMiddleware' => false,
-        'displayErrorDetails' => false,
+        'displayErrorDetails' => true,
 
         // View settings
         'view' => [
@@ -19,6 +19,17 @@ return [
         'logger' => [
             'name' => 'app',
             'path' => __DIR__ . '/../log/app.log',
+        ],
+
+        'db' => [
+          'driver' => 'mysql',
+          'host' => 'localhost:3307',
+          'database' => 'tsbwshop',
+          'username' => 'root',
+          'password' => 'usbw',
+          'charset' => 'utf8',
+          'collation' => 'utf8_unicode_ci',
+          'prefix' => '',
         ],
     ],
 ];

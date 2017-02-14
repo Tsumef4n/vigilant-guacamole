@@ -30,9 +30,11 @@ $app->get('/approach', function ($request, $response, $args) {
     ]);
 })->setName('approach');
 
-$app->get('/', function ($request, $response, $args) {
-    return $this->view->render($response, 'welcome.twig', [
-        'title' => "Willkommen",
-        'active' => "welcome",
-    ]);
-})->setName('welcome');
+// $app->get('/', function ($request, $response, $args) {
+//     return $this->view->render($response, 'welcome.twig', [
+//         'title' => "Willkommen",
+//         'active' => "welcome",
+//     ]);
+// })->setName('welcome');
+
+$app->get('/', 'HomeController:index')->setName('welcome');
