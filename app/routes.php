@@ -4,6 +4,20 @@
 // $app->get('/', App\Action\HomeAction::class)
 //     ->setName('homepage');
 
+$app->get('/login', function ($request, $response, $args) {
+    return $this->view->render($response, 'login.twig', [
+        'title' => "Login",
+        'active' => "login",
+    ]);
+})->setName('login');
+
+$app->get('/stock', function ($request, $response, $args) {
+    return $this->view->render($response, 'shop.list.twig', [
+        'title' => "Warenangebot",
+        'active' => "stock",
+    ]);
+})->setName('stock');
+
 $app->get('/contact', function ($request, $response, $args) {
     return $this->view->render($response, 'contact.twig', [
         'title' => "Kontaktformular",

@@ -30,10 +30,12 @@
             <ul class="nav navbar-nav">
               <li class="{% if active == 'welcome' %}active{% endif %}"><a href="{{ base_url() }}" class="{% if active == 'welcome' %}selected{% endif %}">Willkommen</a></li>
               <li class="{% if active == 'approach' %}active{% endif %}"><a href="{{ path_for('approach') }}" class="{% if active == 'approach' %}selected{% endif %}">Anfahrt & Öffnungszeiten</a></li>
-              <li><a href="#">Warenangebot</a></li>
+              <li class="{% if active == 'stock' %}active{% endif %}"><a href="{{ path_for('stock') }}" class="{% if active == 'stock' %}selected{% endif %}">Warenangebot</a></li>
               <li class="{% if active == 'contact' %}active{% endif %}"><a href="{{ path_for('contact') }}" class="{% if active == 'contact' %}selected{% endif %}">Kontakt</a></li>
-
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+            <li class="{% if active == 'login' %}active{% endif %}"><a href="{{ path_for('login') }}" class="{% if active == 'login' %}selected{% endif %}">Login</a></li>
+          </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container -->
       </nav>

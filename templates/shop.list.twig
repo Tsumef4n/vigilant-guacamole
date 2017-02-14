@@ -1,0 +1,20 @@
+{% extends 'layout.shop.twig' %}
+{% block content %}
+
+{% for i in 0..10 %}
+    <div class="col-sm-6 col-md-4 col-lg-3">
+        <!-- <div class="well"> -->
+            <div class="product">
+              <div class="product-item">
+                <h4>$obj->product_name {{ i }}</h4>
+                <div class="product-thumb"><img class="product-img-thumb" src="http://placehold.it/{{ i }}50x100"></div>
+                <div class="product-quantity">Warenbestand: {{ i }}</div>
+                <div class="product-desc">$obj->product_desc</div>
+                <div class="product-info">Preis:<del>19,99Euro</del><ins>9,99Euro</ins>!</div>
+              </div>
+            </div>
+        <!-- </div> -->
+    </div>
+{% endfor %}
+
+{% endblock %}

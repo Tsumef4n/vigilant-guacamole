@@ -6,10 +6,10 @@
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="nav nav-sidebar">
         <!-- Moeglicherweise als jquery fuer Unterpunkte? -->
-        <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Reports</a></li>
-        <li><a href="#">Analytics</a></li>
-        <li><a href="#">Export</a></li>
+        <li class="active"><a href="#">Alle Produkte <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Holz</a></li>
+        <li><a href="#">Metall</a></li>
+        <li><a href="#">Textil</a></li>
       </ul>
       <ul class="nav nav-sidebar">
         <li><a href="">Nav item</a></li>
@@ -25,12 +25,9 @@
       </ul>
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      {% block content %} {% endblock %}
 
-      <div class="container">
-        {% block content %} {% endblock %}
-      </div>
-
+      {% include "layout.footer.twig" %}
     </div>
   </div>
 </div>
-{% include "layout.footer.twig" %}
