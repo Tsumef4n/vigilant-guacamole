@@ -2,12 +2,12 @@
 // Routes
 
 
-$app->get('/login', function ($request, $response, $args) {
-    return $this->view->render($response, 'auth/login.twig', [
-        'title' => "Login",
-        'active' => "login",
-    ]);
-})->setName('login');
+// $app->get('/login', function ($request, $response, $args) {
+//     return $this->view->render($response, 'auth/login.twig', [
+//         'title' => "Login",
+//         'active' => "login",
+//     ]);
+// })->setName('login');
 
 $app->get('/stock', function ($request, $response, $args) {
     return $this->view->render($response, 'shop.list.twig', [
@@ -18,7 +18,7 @@ $app->get('/stock', function ($request, $response, $args) {
 
 $app->get('/contact', function ($request, $response, $args) {
     return $this->view->render($response, 'contact.twig', [
-        'title' => "Kontaktformular",
+        'title' => "Kontakt",
         'active' => "contact",
     ]);
 })->setName('contact');
@@ -39,5 +39,8 @@ $app->get('/approach', function ($request, $response, $args) {
 
 $app->get('/auth/register', 'AuthController:getRegister')->setName('auth.register');
 $app->post('/auth/register', 'AuthController:postRegister');
+
+$app->get('/auth/login', 'AuthController:getLogin')->setName('auth.login');
+$app->post('/auth/login', 'AuthController:postLogin');
 
 $app->get('/', 'HomeController:index')->setName('welcome');

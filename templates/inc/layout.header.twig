@@ -34,7 +34,17 @@
               <li class="{% if active == 'contact' %}active{% endif %}"><a href="{{ path_for('contact') }}" class="{% if active == 'contact' %}selected{% endif %}">Kontakt</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-            <li class="{% if active == 'login' %}active{% endif %}"><a href="{{ path_for('login') }}" class="{% if active == 'login' %}selected{% endif %}">Login</a></li>
+              {% if auth.check %}
+                <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ auth.user.name }}
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Abmelden</a></li>
+                </ul>
+              </li>
+              {% else %}
+                <li class="{% if active == 'login' %}active{% endif %}"><a href="{{ path_for('auth.login') }}" class="{% if active == 'login' %}selected{% endif %}">Login</a></li>
+              {% endif %}
           </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container -->

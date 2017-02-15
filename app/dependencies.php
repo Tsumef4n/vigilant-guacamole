@@ -1,6 +1,8 @@
 <?php
 // DIC configuration
 
+use Respect\Validation\Validator as v;
+
 $container = $app->getContainer();
 
 
@@ -15,6 +17,23 @@ $container['db'] = function ($c) use ($capsule) {
     return $capsule;
 };
 
+// Request Validator
+$container['validator'] = function ($c) {
+  return new App\Validation\Validator;
+};
+
+// Add custom rule to validator
+v::with('App\\Validation\\Rules\\');
+
+// Csrf
+$container['csrf'] = function ($c) {
+  return new Slim\Csrf\Guard;
+};
+
+// Auth
+$container['auth'] = function ($c) {
+  return new App\Auth\Auth;
+};
 
 // -----------------------------------------------------------------------------
 // Service providers
@@ -28,6 +47,12 @@ $container['view'] = function ($c) {
     // Add extensions
     $view->addExtension(new Slim\Views\TwigExtension($c->get('router'), $c->get('request')->getUri()));
     $view->addExtension(new Twig_Extension_Debug());
+
+    $view->getEnvironment()->addGlobal('auth', [
+      'check' => $c->auth->check(),
+      'user' => $c->auth->user(),
+    ]);
+
 
     return $view;
 };
