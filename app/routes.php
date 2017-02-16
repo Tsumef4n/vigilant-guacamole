@@ -43,4 +43,9 @@ $app->post('/auth/register', 'AuthController:postRegister');
 $app->get('/auth/login', 'AuthController:getLogin')->setName('auth.login');
 $app->post('/auth/login', 'AuthController:postLogin');
 
+$app->get('/auth/password/change', 'PasswordController:getChangePassword')->setName('auth.password.change');
+$app->post('/auth/password/change', 'PasswordController:postChangePassword');
+
+$app->get('/auth/logoff', 'AuthController:getLogoff')->setName('auth.logoff');
+
 $app->get('/', 'HomeController:index')->setName('welcome');

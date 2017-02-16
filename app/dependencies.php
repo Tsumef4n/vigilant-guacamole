@@ -39,6 +39,11 @@ $container['auth'] = function ($c) {
 // Service providers
 // -----------------------------------------------------------------------------
 
+// Flash messages
+$container['flash'] = function ($c) {
+    return new Slim\Flash\Messages;
+};
+
 // Twig
 $container['view'] = function ($c) {
     $settings = $c->get('settings');
@@ -53,13 +58,9 @@ $container['view'] = function ($c) {
       'user' => $c->auth->user(),
     ]);
 
+    $view->getEnvironment()->addGlobal('flash', $c->flash);
 
     return $view;
-};
-
-// Flash messages
-$container['flash'] = function ($c) {
-    return new Slim\Flash\Messages;
 };
 
 // -----------------------------------------------------------------------------

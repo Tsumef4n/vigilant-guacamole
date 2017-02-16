@@ -8,6 +8,12 @@ use Respect\Validation\Validator as v;
 
 class AuthController extends Controller
 {
+  public function getLogoff($request, $response)
+  {
+    $this->container->auth->logout();
+    return $response->withRedirect($this->container->router->pathFor('welcome'));
+  }
+
   public function getLogin($request, $response)
   {
     return $this->container->view->render($response, 'auth/login.twig', [
@@ -26,6 +32,7 @@ class AuthController extends Controller
     if (!$auth)
     {
       $_SESSION['errors']['failedLogin'] = ['E-Mail oder Passwort falsch'];
+      $this->container->flash->addMessage('error', 'Anmeldung fehlgeschlagen');
       return $response->withRedirect($this->container->router->pathFor('auth.login'));
     }
 
@@ -60,6 +67,10 @@ class AuthController extends Controller
       'email' => $request->getParam('email'),
       'password' => password_hash($request->getParam('password'), PASSWORD_DEFAULT),
     ]);
+
+    $this->container->flash->addMessage('info', 'Registrierung erfolgreich!');
+
+    $this->container->auth->attempt($user->email, $request->getParam('password'));
 
     return $response->withRedirect($this->container->router->pathFor('welcome'));
   }

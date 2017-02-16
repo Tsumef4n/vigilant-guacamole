@@ -38,4 +38,9 @@ class Auth
     // password not matching
     return false;
   }
+
+  public function logout()
+  {
+    unset($_SESSION['user']);
+  }
 }

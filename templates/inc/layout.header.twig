@@ -39,7 +39,8 @@
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ auth.user.name }}
                 <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Abmelden</a></li>
+                  <li><a href="{{ path_for('auth.password.change') }}">Passwort ändern</a></li>
+                  <li><a href="{{ path_for('auth.logoff') }}">Abmelden</a></li>
                 </ul>
               </li>
               {% else %}
