@@ -5,6 +5,10 @@ $container['HomeController'] = function($c) {
   return new \App\Controllers\HomeController($c);
 };
 
+$container['ShopController'] = function($c) {
+  return new \App\Controllers\ShopController($c);
+};
+
 $container['AuthController'] = function($c) {
   return new \App\Controllers\Auth\AuthController($c);
 };

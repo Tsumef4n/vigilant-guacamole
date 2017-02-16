@@ -16,4 +16,19 @@ class HomeController extends Controller
     ]);
   }
 
+  public function contact($request, $response)
+  {
+    return $this->container->view->render($response, 'contact.twig', [
+        'title' => "Kontakt",
+        'active' => "contact",
+    ]);
+  }
+
+  public function approach($request, $response)
+  {
+    return $this->container->view->render($response, 'approach.twig', [
+        'title' => "Anfahrt & Öffnungszeiten",
+        'active' => "approach",
+    ]);
+  }
 }

@@ -12,41 +12,12 @@
 use App\Middleware\AuthMiddleware;
 use App\Middleware\GuestMiddleware;
 
-$app->get('/stock', function ($request, $response, $args) {
-    return $this->view->render($response, 'shop.list.twig', [
-        'title' => "Warenangebot",
-        'active' => "stock",
-    ]);
-})->setName('stock');
-
-$app->get('/contact', function ($request, $response, $args) {
-    return $this->view->render($response, 'contact.twig', [
-        'title' => "Kontakt",
-        'active' => "contact",
-    ]);
-})->setName('contact');
-
-$app->get('/approach', function ($request, $response, $args) {
-    return $this->view->render($response, 'approach.twig', [
-        'title' => "Anfahrt & Öffnungszeiten",
-        'active' => "approach",
-    ]);
-})->setName('approach');
-
-// $app->get('/', function ($request, $response, $args) {
-//     return $this->view->render($response, 'welcome.twig', [
-//         'title' => "Willkommen",
-//         'active' => "welcome",
-//     ]);
-// })->setName('welcome');
-
-$app->get('/auth/register', 'AuthController:getRegister')->setName('auth.register');
-$app->post('/auth/register', 'AuthController:postRegister');
-
-
-
 // Routen nur fuer bestimmte Gruppen freigeben
 $app->group('', function () {
+    // Nur User sollen User erstellen koennen
+    $this->get('/auth/register', 'AuthController:getRegister')->setName('auth.register');
+    $this->post('/auth/register', 'AuthController:postRegister');
+
     $this->get('/auth/password/change', 'PasswordController:getChangePassword')->setName('auth.password.change');
     $this->post('/auth/password/change', 'PasswordController:postChangePassword');
 
@@ -58,5 +29,11 @@ $app->group('', function () {
     $this->get('/auth/login', 'AuthController:getLogin')->setName('auth.login');
     $this->post('/auth/login', 'AuthController:postLogin');
 })->add(new GuestMiddleware($container));
+
+// Ohne Gruppe -> fuer alle sichtbar
+$app->get('/contact', 'HomeController:contact')->setName('contact');
+$app->get('/approach', 'HomeController:approach')->setName('approach');
+
+$app->get('/stock', 'ShopController:stock')->setName('stock');
 
 $app->get('/', 'HomeController:index')->setName('welcome');
