@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\User;
+use App\Models\Maker;
 use Slim\Views\Twig as View;
 
 class ShopController extends Controller
