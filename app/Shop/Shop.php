@@ -2,7 +2,7 @@
 
 namespace App\Shop;
 
-use App\Models\Maker;
+use App\Models\Product;
 
 class Shop
 {
