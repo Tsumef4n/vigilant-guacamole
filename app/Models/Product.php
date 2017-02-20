@@ -13,4 +13,8 @@ class Product extends Model
     'description',
   ];
 
+  public function maker()
+  {
+      return $this->belongsTo('App\Models\Maker', 'maker_id', 'id');
+  }
 };
