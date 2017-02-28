@@ -1,0 +1,19 @@
+<div class="lightbox" id="fl0">
+    <form class="form-signin" action="{{ path_for('admin.list') }}" method="post">
+        <h4 class="modal-title">Neuer Eintrag</h4>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="name-0">Name:</label>
+                <input type="text" class="form-control" id="name-0" name="name" value="{{ name }}" maxlength="250" required>
+            </div>
+            <div class="form-group">
+                <label for="description-0">Text:</label>
+                <textarea class="form-control noresize" id="description-0" rows="10" required name="description">{{ description }}</textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-success" name="submit">Speichern</button>
+        </div>
+        {{ csrf.field | raw }}
+    </form>
+</div>

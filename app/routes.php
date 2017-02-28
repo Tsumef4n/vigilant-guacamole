@@ -1,7 +1,6 @@
 <?php
 // Routes
 
-
 // $app->get('/login', function ($request, $response, $args) {
 //     return $this->view->render($response, 'auth/login.twig', [
 //         'title' => "Login",
@@ -15,6 +14,8 @@ use App\Middleware\GuestMiddleware;
 // Routen nur fuer bestimmte Gruppen freigeben
 $app->group('', function () {
     $this->get('/admin/list[/{id}]', 'AdminController:getList')->setName('admin.list');
+    $this->post('/admin/list', 'AdminController:postNewProduct');
+    $this->post('/admin/list/{id}', 'AdminController:putUpdateProduct');
 
     // Nur User sollen User erstellen koennen
     $this->get('/auth/register', 'AuthController:getRegister')->setName('auth.register');

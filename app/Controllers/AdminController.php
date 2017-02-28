@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Product;
 use App\Models\Maker;
 use Slim\Views\Twig as View;
+use Respect\Validation\Validator as v;
 
 class AdminController extends Controller
 {
@@ -29,5 +30,36 @@ class AdminController extends Controller
           'makers' => $makers,
           'id' => $id,
       ]);
+  }
+
+  public function postNewProduct($request, $response)
+  {
+    $validation = $this->container->validator->validate($request, [
+      'name' => v::notEmpty(),
+      'description' => v::notEmpty(),
+    ]);
+
+    if ($validation->failed())
+    {
+      $this->container->flash->addMessage('error', 'Fehler bei der Erstellung!');
+      return $response->withRedirect($this->container->router->pathFor('admin.list'));
+    }
+
+    // getParam uses name of element, not the id
+    $user = Product::create([
+      'name' => $request->getParam('name'),
+      'description' => $request->getParam('description'),
+      'maker_id' => 1
+    ]);
+
+    $this->container->flash->addMessage('info', 'Produkt erfolgreich hinzugefügt!');
+
+    return $response->withRedirect($this->container->router->pathFor('admin.list'));
+  }
+
+  public function putUpdateProduct($request, $response, $args)
+  {
+    echo "PUT";
+    die();
   }
 }

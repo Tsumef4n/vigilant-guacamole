@@ -31,27 +31,4 @@ class ShopController extends Controller
           'id' => $id,
       ]);
   }
-
-  public function postNewProduct($request, $response)
-  {
-    $validation = $this->container->validator->validate($request, [
-      'name' => v::notEmpty(),
-      'description' => v::notEmpty(),
-    ]);
-
-    if ($validation->failed())
-    {
-      return $response->withRedirect($this->container->router->pathFor('admin.list'));
-    }
-
-    // getParam uses name of element, not the id
-    $user = Product::create([
-      'name' => $request->getParam('name'),
-      'description' => $request->getParam('email'),
-    ]);
-
-    $this->container->flash->addMessage('info', 'Produkt erfolgreich hinzugefügt!');
-
-    return $response->withRedirect($this->container->router->pathFor('admin.list'));
-  }
 }
