@@ -14,6 +14,8 @@ use App\Middleware\GuestMiddleware;
 
 // Routen nur fuer bestimmte Gruppen freigeben
 $app->group('', function () {
+    $this->get('/admin/list[/{id}]', 'AdminController:getList')->setName('admin.list');
+
     // Nur User sollen User erstellen koennen
     $this->get('/auth/register', 'AuthController:getRegister')->setName('auth.register');
     $this->post('/auth/register', 'AuthController:postRegister');
@@ -34,6 +36,10 @@ $app->group('', function () {
 $app->get('/contact', 'HomeController:contact')->setName('contact');
 $app->get('/approach', 'HomeController:approach')->setName('approach');
 
-$app->get('/stock', 'ShopController:stock')->setName('stock');
+$app->get('/stock[/{id}]', 'ShopController:stock')->setName('stock');
+
+// $app->get('/test', function ($request, $response, $args) {
+//   return $this->view->render($response, 'index.html');
+// });
 
 $app->get('/', 'HomeController:index')->setName('welcome');

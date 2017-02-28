@@ -1,0 +1,50 @@
+{% extends 'inc/layout.admin.twig' %}
+{% block content %}
+  <div class="col-sm-12">
+    <div class="row">
+  		<div class="col-md-6">
+        <h2>Produktliste</h2>
+      </div>
+      <div class="col-md-6 text-right">
+        <button type="button" class="btn btn-primary fixed-button-width" href=# data-featherlight="#fl0" data-featherlight-close-on-click="false">Neues Produkt</button>
+        {{ include('inc/modal.product.twig', {
+          id: "0"
+          }) }}
+      </div>
+    </div>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Beschreibung</th>
+              <th>Quelle</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for product in products %}
+            <tr href=# data-featherlight="#fl{{ product.id }}" data-featherlight-close-on-click="false">
+              <td>{{ product.id }}</td>
+              <td>{{ product.name }}</td>
+              <td>
+                {% if product.description|length > 70 %}
+                {{ product.description|slice(0,70) }} ...
+                {% else %}
+                {{ product.description }}
+                {% endif %}
+              </td>
+              <td>{{ product.maker.name }}</td>
+            </tr>
+            {{ include('inc/modal.product.twig', {
+              id: product.id,
+              name: product.name,
+              description: product.description
+              }) }}
+            {% else %}
+                <tr><td colspan=4>Keine Produkte gefunden</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+{% endblock %}
