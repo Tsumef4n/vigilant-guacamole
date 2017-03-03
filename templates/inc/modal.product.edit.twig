@@ -13,6 +13,7 @@
     </div>
     <div class="modal-footer">
       <button type="submit" class="btn btn-success" name="submit">Speichern</button>
+      <button type="button" class="btn btn-danger featherlight-close" onclick="featherlight.close();return false;" name="close">Abbrechen</button>
     </div>
     {{ csrf.field | raw }}
   </form>
