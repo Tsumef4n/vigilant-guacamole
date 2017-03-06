@@ -13,7 +13,8 @@
         "monolog/monolog": "^1.22",
         "illuminate/database": "^5.4",
         "Respect/Validation": "^1.1",
-        "slim/csrf": "^0.8.1"
+        "slim/csrf": "^0.8.1",
+        "intervention/image": "^2.3"
 
     },
     "require-dev": {

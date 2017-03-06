@@ -66,6 +66,19 @@ class AdminController extends Controller
 
             return $response->withRedirect($this->container->router->pathFor('admin.list'));
         }
+        $files = $request->getUploadedFiles();
+        if (empty($files['file'])) {
+            // Keine Datei ausgewaehlt...
+        } else {
+            // TODO: Check for old file to delete?
+            $file = $files['file'];
+            // Upload new file
+            if ($file->getError() === UPLOAD_ERR_OK) {
+                $uploadFileName = $file->getClientFilename();
+                $ext = pathinfo($uploadFileName, PATHINFO_EXTENSION);
+                $file->moveTo('public/images/products/'.$args['id'].'.'.$ext);
+            }
+        }
 
         $product = Product::where('id', $args['id'])->update([
             'name' => $request->getParam('name'),

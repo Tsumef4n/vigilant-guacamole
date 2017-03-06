@@ -1,4 +1,4 @@
 vendor/
 log/*
 cache/*
-images/products/*
+public/images/products/*

@@ -5,9 +5,8 @@ use Respect\Validation\Validator as v;
 
 $container = $app->getContainer();
 
-
 // Load Eloquent
-$capsule = new \Illuminate\Database\Capsule\Manager;
+$capsule = new \Illuminate\Database\Capsule\Manager();
 
 $capsule->addConnection($container['settings']['db']);
 $capsule->setAsGlobal();
@@ -19,7 +18,7 @@ $container['db'] = function ($c) use ($capsule) {
 
 // Request Validator
 $container['validator'] = function ($c) {
-  return new App\Validation\Validator;
+    return new App\Validation\Validator();
 };
 
 // Add custom rule to validator
@@ -27,12 +26,12 @@ v::with('App\\Validation\\Rules\\');
 
 // Csrf
 $container['csrf'] = function ($c) {
-  return new Slim\Csrf\Guard;
+    return new Slim\Csrf\Guard();
 };
 
 // Auth
 $container['auth'] = function ($c) {
-  return new App\Auth\Auth;
+    return new App\Auth\Auth();
 };
 
 // -----------------------------------------------------------------------------
@@ -41,7 +40,7 @@ $container['auth'] = function ($c) {
 
 // Flash messages
 $container['flash'] = function ($c) {
-    return new Slim\Flash\Messages;
+    return new Slim\Flash\Messages();
 };
 
 // Twig
@@ -73,5 +72,6 @@ $container['logger'] = function ($c) {
     $logger = new Monolog\Logger($settings['logger']['name']);
     $logger->pushProcessor(new Monolog\Processor\UidProcessor());
     $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['logger']['path'], Monolog\Logger::DEBUG));
+
     return $logger;
 };
