@@ -40,9 +40,9 @@
             <li class="{% if active == 'stock' %}active{% endif %}">
               <a href="{{ path_for('stock') }}" class="{% if active == 'stock' %}selected{% endif %}">Warenangebot</a>
             </li>
-            <li class="{% if active == 'contact' %}active{% endif %}">
+            <!-- <li class="{% if active == 'contact' %}active{% endif %}">
               <a href="{{ path_for('contact') }}" class="{% if active == 'contact' %}selected{% endif %}">Kontakt</a>
-            </li>
+            </li> -->
           </ul>
           <ul class="nav navbar-nav navbar-right">
             {% if auth.check %}
