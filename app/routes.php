@@ -34,7 +34,7 @@ $app->group('', function () {
 })->add(new GuestMiddleware($container));
 
 // Ohne Gruppe -> fuer alle sichtbar
-$app->get('/contact', 'HomeController:contact')->setName('contact');
+$app->get('/impressum', 'HomeController:impressum')->setName('impressum');
 $app->get('/approach', 'HomeController:approach')->setName('approach');
 
 $app->get('/stock[/{id}]', 'ShopController:stock')->setName('stock');
@@ -42,5 +42,6 @@ $app->get('/stock[/{id}]', 'ShopController:stock')->setName('stock');
 // $app->get('/test', function ($request, $response, $args) {
 //   return $this->view->render($response, 'index.html');
 // });
+$app->get('/onepage', 'HomeController:onepage')->setName('onepage');
 
 $app->get('/', 'HomeController:index')->setName('welcome');

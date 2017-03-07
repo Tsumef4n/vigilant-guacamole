@@ -11,10 +11,16 @@ class Product extends Model
   protected $fillable = [
     'name',
     'description',
+    'image',
   ];
 
     public function maker()
     {
         return $this->belongsTo('App\Models\Maker', 'maker_id', 'id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category', 'maker_id', 'id');
     }
 }

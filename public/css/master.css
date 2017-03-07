@@ -1,5 +1,9 @@
 /* Featherlight */
 
+.test {
+  width: 500px;
+}
+
 @media all {
   .lightbox {
     display: none;
@@ -71,7 +75,7 @@
   .fixwidth .featherlight-content {
     width: 800px;
     padding: 25px;
-    color: #fff;
+    color: #A00;
     background: #111;
   }
   .fixwidth .featherlight-close {
@@ -288,6 +292,11 @@
   /* 20px padding + 1px border */
   margin-bottom: 20px;
   margin-left: -20px;
+}
+
+.nav-sub {
+  margin-left: 0px;
+  padding-left: 10px;
 }
 
 .nav-sidebar>li>a {
