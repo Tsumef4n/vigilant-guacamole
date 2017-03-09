@@ -2,15 +2,17 @@
 
 {% block content %}
 
-<!-- Carousel================================================== -->
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
-  <!-- Indicators -->
-  <ol class="carousel-indicators">
-    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-    <li data-target="#myCarousel" data-slide-to="1"></li>
-    <li data-target="#myCarousel" data-slide-to="2"></li>
-  </ol>
-  <div class="carousel-inner" role="listbox">
+  <!-- Carousel================================================== -->
+  <!--
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+  <!--
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+   <div class="carousel-inner" role="listbox">
     <div class="item active">
       <img class="first-slide" src="http://placehold.it/1600x315" alt="First slide">
       <div class="container">
@@ -49,12 +51,14 @@
   </a>
 </div><!-- /.carousel -->
 
-<p>Das ist ein Test</p>
-<div class="hr-divider">
-  <h3 class="hr-divider-content hr-divider-heading">
-    Divider heading
-  </h3>
-</div>
-<p>Noch ein Test</p>
+  {% include "onepage/intro.twig" %}
+
+  <div id="logo">
+    <img src="../images/fix/zeitung.jpg" alt="Zeitungsartikel" height="100%" width="100%">
+  </div>
+
+  <h3>Divider heading</h3>
+
+  <p>Noch ein Test</p>
 
 {% endblock %}
