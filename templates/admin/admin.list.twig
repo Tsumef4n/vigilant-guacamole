@@ -1,4 +1,4 @@
-{% extends 'inc/layout.admin.twig' %}
+{% extends 'admin/inc/layout.admin.twig' %}
 {% block content %}
   <div class="col-sm-12">
     <div class="row">
@@ -7,7 +7,7 @@
       </div>
       <div class="col-md-6 text-right">
         <button type="button" class="btn btn-primary fixed-button-width" href=# data-featherlight="#fl0" data-featherlight-close-on-click="false">Neues Produkt</button>
-        {{ include('inc/modal.product.new.twig', {
+        {{ include('admin/inc/modal.product.new.twig', {
                   id: "0"
                   }) }}
       </div>
@@ -46,7 +46,7 @@
       </table>
 
       {% for product in products %}
-        {{ include('inc/modal.product.edit.twig', {
+        {{ include('admin/inc/modal.product.edit.twig', {
               id: product.id,
               name: product.name,
               description: product.description

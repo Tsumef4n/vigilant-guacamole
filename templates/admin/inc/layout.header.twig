@@ -21,7 +21,7 @@
 
   <body>
     <!-- navbar -->
-    <nav class="navbar navbar-custom navbar-fixed-top{% if active == 'welcome' %} navbar-welcome{% else %} top-nav-collapse{% endif %}">
+    <nav class="navbar navbar-default navbar-static-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -30,41 +30,40 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <div class="navbar-brand">Schnüsterwinkel</div>
+          <div class="navbar-brand">Schnüsterwinkel - TSBW Shop</div>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="{% if active == 'welcome' %}active{% endif %}">
-              <a href="{{ base_url() }}" class="{% if active == 'welcome' %}selected{% endif %}">Home</a>
-            </li>
-            <li class="{% if active == 'news' %}active{% endif %}">
-              <a href="{{ path_for('news') }}" class="{% if active == 'news' %}selected{% endif %}">News</a>
-            </li>
-            <li class="{% if active == 'stock' %}active{% endif %}">
-              <a href="{{ path_for('stock') }}" class="{% if active == 'stock' %}selected{% endif %}">Shop</a>
-            </li>
-            <li class="{% if active == 'kulinarisches' %}active{% endif %}">
-              <a href="{{ path_for('kulinarisches') }}" class="{% if active == 'kulinarisches' %}selected{% endif %}">Kulinarisches</a>
-            </li>
-            <li class="{% if active == 'aboutUs' %}active{% endif %}">
-              <a href="{{ path_for('aboutUs') }}" class="{% if active == 'aboutUs' %}selected{% endif %}">Über uns</a>
-            </li>
-            <li class="{% if active == 'press' %}active{% endif %}">
-              <a href="{{ path_for('press') }}" class="{% if active == 'press' %}selected{% endif %}">Presse</a>
-            </li>
-            <li class="{% if active == 'guestbook' %}active{% endif %}">
-              <a href="{{ path_for('guestbook') }}" class="{% if active == 'guestbook' %}selected{% endif %}">Gästebuch</a>
+              <a href="{{ base_url() }}" class="{% if active == 'welcome' %}selected{% endif %}">Willkommen</a>
             </li>
             <li class="{% if active == 'approach' %}active{% endif %}">
-              <a href="{{ path_for('approach') }}" class="{% if active == 'approach' %}selected{% endif %}">Anfahrt</a>
+              <a href="{{ path_for('approach') }}" class="{% if active == 'approach' %}selected{% endif %}">Anfahrt & Öffnungszeiten</a>
             </li>
-
+            <li class="{% if active == 'stock' %}active{% endif %}">
+              <a href="{{ path_for('stock') }}" class="{% if active == 'stock' %}selected{% endif %}">Warenangebot</a>
+            </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             {% if auth.check %}
               <li class="{% if active == 'admin' %}active{% endif %}">
-                <a href="{{ path_for('admin.list') }}" class="{% if active == 'admin' %}selected{% endif %}">Admin
+                <a href="{{ path_for('admin.list') }}" class="{% if active == 'admin' %}selected{% endif %}">Verwaltungsansicht</a>
+              </li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ auth.user.name }}
+                  <span class="caret"></span>
                 </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="{{ path_for('auth.password.change') }}">Passwort ändern</a>
+                  </li>
+                  <li>
+                    <a href="{{ path_for('auth.register') }}">Neuen Nutzer anlegen</a>
+                  </li>
+                  <li>
+                    <a href="{{ path_for('auth.logoff') }}">Abmelden</a>
+                  </li>
+                </ul>
               </li>
             {% else %}
               <li class="{% if active == 'login' %}active{% endif %}">

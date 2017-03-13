@@ -1,8 +1,12 @@
 {% include "inc/layout.header.twig" %}
 
-<div class="container">
+{% block padding %}
+  <div class="padding"></div>
+{% endblock %}
+
+<div>
   {% include "inc/layout.flash.twig" %}
-  {% block content %} {% endblock %}
+  {% block content %}{% endblock %}
 </div>
 
 {% include "inc/layout.footer.twig" %}

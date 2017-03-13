@@ -1,0 +1,8 @@
+<div>
+  <p class="guestbook-header">{{ entry.name }}
+    schrieb am
+    {{ entry.created_at|date("d.m.Y") }}
+    um
+    {{ entry.created_at|date("H:i") }}:</p>
+  <p>{{ entry.text }}</p>
+</div>

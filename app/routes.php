@@ -35,9 +35,15 @@ $app->group('', function () {
 
 // Ohne Gruppe -> fuer alle sichtbar
 $app->get('/impressum', 'HomeController:impressum')->setName('impressum');
-$app->get('/approach', 'HomeController:approach')->setName('approach');
 
+$app->get('/news[/{id}]', 'HomeController:news')->setName('news');
 $app->get('/stock[/{id}]', 'ShopController:stock')->setName('stock');
+$app->get('/kulinarisches', 'HomeController:kulinarisches')->setName('kulinarisches');
+$app->get('/aboutUs', 'HomeController:aboutUs')->setName('aboutUs');
+$app->get('/press', 'HomeController:press')->setName('press');
+$app->get('/guestbook', 'GuestbookController:getList')->setName('guestbook');
+$app->post('/guestbook', 'GuestbookController:postNewEntry');
+$app->get('/approach', 'HomeController:approach')->setName('approach');
 
 // $app->get('/test', function ($request, $response, $args) {
 //   return $this->view->render($response, 'index.html');

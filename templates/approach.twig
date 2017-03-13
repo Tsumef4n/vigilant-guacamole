@@ -1,19 +1,8 @@
 {% extends 'inc/layout.main.twig' %}
 
 {% block content %}
-<h1>Anfahrt</h1>
+  <h1>Anfahrt</h1>
 
-<!-- Add Google Maps -->
-<div id="googleMap"></div>
-<script>
-function myMap() {
-var myCenter = new google.maps.LatLng(54.4932908, 9.0728228);
-var mapProp = {center:myCenter, zoom:16, scrollwheel:true, draggable:true, mapTypeId:google.maps.MapTypeId.ROADMAP};
-var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
-var marker = new google.maps.Marker({position:myCenter});
-marker.setMap(map);
-}
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChz3TUHVwwHOTmJ9SirMgo8EXy5etueRw&callback=myMap"></script>
+  {% include "content/map.twig" %}
 
 {% endblock %}

@@ -1,22 +1,31 @@
 <?php
+
 $container = $app->getContainer();
 
-$container['HomeController'] = function($c) {
-  return new \App\Controllers\HomeController($c);
+$container['HomeController'] = function ($c) {
+    return new \App\Controllers\HomeController($c);
 };
 
-$container['ShopController'] = function($c) {
-  return new \App\Controllers\ShopController($c);
+$container['ShopController'] = function ($c) {
+    return new \App\Controllers\ShopController($c);
 };
 
-$container['AuthController'] = function($c) {
-  return new \App\Controllers\Auth\AuthController($c);
+$container['NewsController'] = function ($c) {
+    return new \App\Controllers\NewsController($c);
 };
 
-$container['AdminController'] = function($c) {
-  return new \App\Controllers\AdminController($c);
+$container['GuestbookController'] = function ($c) {
+    return new \App\Controllers\GuestbookController($c);
 };
 
-$container['PasswordController'] = function($c) {
-  return new \App\Controllers\Auth\PasswordController($c);
+$container['AuthController'] = function ($c) {
+    return new \App\Controllers\Auth\AuthController($c);
+};
+
+$container['AdminController'] = function ($c) {
+    return new \App\Controllers\AdminController($c);
+};
+
+$container['PasswordController'] = function ($c) {
+    return new \App\Controllers\Auth\PasswordController($c);
 };

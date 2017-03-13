@@ -1,0 +1,50 @@
+{% extends 'inc/layout.main.twig' %}
+
+{% block content %}
+  <div class="container content-font">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2">
+        <h1>Gästebuch</h1>
+        {% for entry in guestbook %}
+          {% include 'content/guestbook.entry.twig' %}
+        {% else %}
+          <p>Noch kein Eintrag vorhanden :(</p>
+        {% endfor %}
+
+        <div class='site-divider'></div>
+
+        <form class="form-guestbook" action="{{ path_for('guestbook') }}" method="post">
+          <h4>Neuer Eintrag</h4>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" autocomplete="off" maxlength="250" placeholder="Name" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="email">E-Mail:</label>
+                <input type="email" class="form-control" id="email" name="email" autocomplete="off" maxlength="250" placeholder="E-Mail" required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="text">Nachricht:</label>
+                <textarea class="form-control textarea" rows="3" name="text" id="text" placeholder="Nachricht"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <button type="submit" class="btn main-btn pull-right">Nachricht senden</button>
+            </div>
+          </div>
+          {{ csrf.field | raw }}
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
