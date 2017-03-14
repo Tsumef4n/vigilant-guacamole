@@ -12,6 +12,7 @@ class Product extends Model
     'name',
     'description',
     'image',
+    'maker_id',
   ];
 
     public function maker()

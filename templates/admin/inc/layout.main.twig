@@ -1,0 +1,12 @@
+{% include "admin/inc/layout.header.twig" %}
+
+{% block padding %}
+  <div class="padding"></div>
+{% endblock %}
+
+<div>
+  {% include "inc/layout.flash.twig" %}
+  {% block content %}{% endblock %}
+</div>
+
+{% include "admin/inc/layout.footer.twig" %}

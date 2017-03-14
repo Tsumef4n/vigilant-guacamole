@@ -5,11 +5,31 @@ namespace App\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Cat_Group;
+use App\Models\News;
 use Slim\Views\Twig as View;
 use Respect\Validation\Validator as v;
 
 class AdminController extends Controller
 {
+    public function getNewsList($request, $response)
+    {
+        $news = News::orderBy('created_at')->get();
+
+        return $this->container->view->render($response, 'admin/admin.news.list.twig', [
+          'title' => 'News',
+          'active' => 'admin.news',
+          'news' => $news,
+      ]);
+    }
+
+    public function getNewsNew($request, $response)
+    {
+        return $this->container->view->render($response, 'admin/admin.news.new.twig', [
+          'title' => 'Neue News',
+          'active' => 'admin.news',
+      ]);
+    }
+
     public function getShopList($request, $response, $args)
     {
         $id = 0;

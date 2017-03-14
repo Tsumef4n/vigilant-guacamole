@@ -13,7 +13,9 @@ use App\Middleware\GuestMiddleware;
 
 // Routen nur fuer bestimmte Gruppen freigeben
 $app->group('', function () {
-    $this->get('/admin/news[/{id}]', 'AdminController:getNewsList')->setName('admin.news');
+    $this->get('/admin/news/list', 'AdminController:getNewsList')->setName('admin.news.list');
+    $this->get('/admin/news/edit/{id}', 'AdminController:getNewsSingle')->setName('admin.news.edit');
+    $this->get('/admin/news/new', 'AdminController:getNewsNew')->setName('admin.news.new');
 
     $this->get('/admin/shop[/{id}]', 'AdminController:getShopList')->setName('admin.shop');
     $this->post('/admin/shop', 'AdminController:postShopNewProduct');

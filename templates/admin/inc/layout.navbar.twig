@@ -14,7 +14,7 @@
       <ul class="nav navbar-nav">
 
         <li class="{% if active == 'admin.news' %}active{% endif %}">
-          <a href="{{ path_for('admin.news') }}" class="{% if active == 'admin.news' %}selected{% endif %}">News</a>
+          <a href="{{ path_for('admin.news.list') }}" class="{% if active == 'admin.news' %}selected{% endif %}">News</a>
         </li>
         <li class="{% if active == 'admin.shop' %}active{% endif %}">
           <a href="{{ path_for('admin.shop') }}" class="{% if active == 'admin.shop' %}selected{% endif %}">Shop</a>
