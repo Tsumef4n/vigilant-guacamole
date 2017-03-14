@@ -1,0 +1,10 @@
+<article>
+  <h2 class="guestbook-header">{{ entry.title }}</h2>
+  <h5 class="guestbook-header">
+    <i>Veröffentlicht am</i>
+    {{ entry.created_at|date("d.m.Y") }}
+    <i>um</i>
+    {{ entry.created_at|date("H:i") }}
+  </h5>
+  <p>{{ entry.text }}</p>
+</article>

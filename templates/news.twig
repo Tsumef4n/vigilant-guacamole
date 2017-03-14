@@ -1,0 +1,30 @@
+{% extends 'inc/layout.main.twig' %}
+
+{% block content %}
+  <div class="container content-font">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2">
+        <h1>News</h1>
+        <div class="site-divider"></div>
+        {% for entry in news %}
+          {% include 'content/news.entry.twig' %}
+          <div class="site-divider"></div>
+        {% else %}
+          <p>Kein Eintrag vorhanden</p>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-lg-offset-2">
+        {% if news is not empty %}
+          <a href="{{ path_for('news') }}/{{ page + 1 }}">Ältere News laden</a>
+        {% endif %}
+      </div>
+      {% if page >= 2 %}
+        <div class="col-lg-2">
+          <a href="{{ path_for('news') }}/{{ page - 1 }}">Neuere News laden</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

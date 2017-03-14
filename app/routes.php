@@ -36,7 +36,7 @@ $app->group('', function () {
 // Ohne Gruppe -> fuer alle sichtbar
 $app->get('/impressum', 'HomeController:impressum')->setName('impressum');
 
-$app->get('/news[/{id}]', 'HomeController:news')->setName('news');
+$app->get('/news[/{page}]', 'HomeController:news')->setName('news');
 $app->get('/stock[/{id}]', 'ShopController:stock')->setName('stock');
 $app->get('/kulinarisches', 'HomeController:kulinarisches')->setName('kulinarisches');
 $app->get('/aboutUs', 'HomeController:aboutUs')->setName('aboutUs');
