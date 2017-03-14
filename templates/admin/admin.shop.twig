@@ -1,4 +1,4 @@
-{% extends 'admin/inc/layout.admin.twig' %}
+{% extends 'admin/inc/layout.shop.twig' %}
 {% block content %}
   <div class="col-sm-12">
     <div class="row">
@@ -35,7 +35,7 @@
                   {{ product.description }}
                 {% endif %}
               </td>
-              <td>{{ product.maker.name }}</td>
+              <td>{{ product.category.name }}</td>
             </tr>
           {% else %}
             <tr>
@@ -49,7 +49,8 @@
         {{ include('admin/inc/modal.product.edit.twig', {
               id: product.id,
               name: product.name,
-              description: product.description
+              description: product.description,
+              maker_id: product.maker_id
               }) }}
       {% endfor %}
     </div>

@@ -1,0 +1,19 @@
+<div class="lightbox" id="fl{{ id }}">
+  <div class="modal-wide">
+    <h4 class="modal-title">{{ name }}</h4>
+    <div class="modal-body">
+      <div class="row">
+        <figure class="modal-image">
+          <img src="../images/products/{{ id  }}.{{ image }}" alt="Bild">
+        </figure>
+        <p>
+          <b>Beschreibung:</b>
+        </p>
+        <p>{{ description }}</p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger featherlight-close" onclick="featherlight.close();return false;" name="close">Schiessen</button>
+    </div>
+  </div>
+</div>

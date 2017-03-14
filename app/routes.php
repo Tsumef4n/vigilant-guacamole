@@ -13,9 +13,15 @@ use App\Middleware\GuestMiddleware;
 
 // Routen nur fuer bestimmte Gruppen freigeben
 $app->group('', function () {
-    $this->get('/admin/list[/{id}]', 'AdminController:getList')->setName('admin.list');
-    $this->post('/admin/list', 'AdminController:postNewProduct');
-    $this->post('/admin/list/{id}', 'AdminController:putUpdateProduct');
+    $this->get('/admin/news[/{id}]', 'AdminController:getNewsList')->setName('admin.news');
+
+    $this->get('/admin/shop[/{id}]', 'AdminController:getShopList')->setName('admin.shop');
+    $this->post('/admin/shop', 'AdminController:postShopNewProduct');
+    $this->post('/admin/shop/{id}', 'AdminController:putShopUpdateProduct');
+
+    $this->get('/admin/kulinarisches[/{id}]', 'AdminController:getKulinarischesList')->setName('admin.kulinarisches');
+
+    $this->get('/admin/press[/{id}]', 'AdminController:getPressList')->setName('admin.press');
 
     // Nur User sollen User erstellen koennen
     $this->get('/auth/register', 'AuthController:getRegister')->setName('auth.register');

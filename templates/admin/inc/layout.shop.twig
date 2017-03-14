@@ -1,4 +1,4 @@
-{% include "inc/layout.header.twig" %}
+{% include "admin/inc/layout.header.twig" %}
 
 {% block padding %}
   <div class="padding"></div>
@@ -11,7 +11,7 @@
       <ul class="nav nav-sidebar">
         <!-- Moeglicherweise als jquery fuer Unterpunkte? -->
         <li {% if 0 == id %} class="active" {% endif %}>
-          <a href="{{ path_for('stock') }}">Alle Produkte
+          <a href="{{ path_for('admin.shop') }}">Alle Produkte
             <span class="sr-only">(current)</span>
           </a>
         </li>
@@ -19,13 +19,14 @@
       <ul class="nav nav-sidebar">
         {{ category_html|raw }}
       </ul>
+
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
       {% include "inc/layout.flash.twig" %}
 
       {% block content %}{% endblock %}
 
-      {% include "inc/layout.footer.twig" %}
+      {% include "admin/inc/layout.footer.twig" %}
     </div>
   </div>
 </div>

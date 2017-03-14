@@ -1,0 +1,55 @@
+<!-- navbar -->
+<nav class="navbar navbar-custom navbar-fixed-top{% if active == 'welcome' %} navbar-welcome{% else %} top-nav-collapse{% endif %}">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="navbar-brand">ADMINSICHT</div>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+
+        <li class="{% if active == 'admin.news' %}active{% endif %}">
+          <a href="{{ path_for('admin.news') }}" class="{% if active == 'admin.news' %}selected{% endif %}">News</a>
+        </li>
+        <li class="{% if active == 'admin.shop' %}active{% endif %}">
+          <a href="{{ path_for('admin.shop') }}" class="{% if active == 'admin.shop' %}selected{% endif %}">Shop</a>
+        </li>
+        <li class="{% if active == 'admin.kulinarisches' %}active{% endif %}">
+          <a href="{{ path_for('admin.kulinarisches') }}" class="{% if active == 'admin.kulinarisches' %}selected{% endif %}">Kulinarisches</a>
+        </li>
+        <li class="{% if active == 'admin.press' %}active{% endif %}">
+          <a href="{{ path_for('admin.press') }}" class="{% if active == 'admin.press' %}selected{% endif %}">Presse</a>
+        </li>
+
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="{{ path_for('welcome') }}">Gastsicht</a>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ auth.user.name }}
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="{{ path_for('auth.password.change') }}">Passwort ändern</a>
+            </li>
+            <li>
+              <a href="{{ path_for('auth.register') }}">Neuen Nutzer anlegen</a>
+            </li>
+            <li>
+              <a href="{{ path_for('auth.logoff') }}">Abmelden</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <!--/.nav-collapse -->
+  </div>
+  <!--/.container -->
+</nav>

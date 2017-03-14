@@ -9,17 +9,10 @@
     {% for product in products %}
       <div class="col-sm-6 col-md-4 col-lg-3">
         <!-- <div class="well"> -->
-        <div class="product">
+        <div class="product" href=# data-featherlight="#fl{{ product.id }}">
           <div class="product-item">
+            <div class="product-thumb"><img class="product-img-thumb" src="../images/products/{{ product.id }}.{{ product.image }}"></div>
             <h3>{{ product.name }}</h3>
-            <div class="product-thumb"><img class="product-img-thumb" src="http://placehold.it/100x100"></div>
-            <!-- <div class="product-quantity">Warenbestand: {{ id }}</div> -->
-            <div class="product-desc block-with-text">
-              <p>{{ product.description }}</p>
-            </div>
-            <div class="product-info">
-              <p>{{ product.maker.name }}</p>
-            </div>
           </div>
         </div>
         <!-- </div> -->
@@ -29,4 +22,14 @@
     {% endfor %}
 
   </div>
+
+  {% for product in products %}
+    {{ include('inc/modal.product.twig', {
+          id: product.id,
+          name: product.name,
+          description: product.description,
+          image: product.image
+          }) }}
+  {% endfor %}
+
 {% endblock %}

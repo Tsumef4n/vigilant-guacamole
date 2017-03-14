@@ -10,7 +10,7 @@ use Respect\Validation\Validator as v;
 
 class AdminController extends Controller
 {
-    public function getList($request, $response, $args)
+    public function getShopList($request, $response, $args)
     {
         $id = 0;
         if (isset($args['id'])) {
@@ -35,13 +35,13 @@ class AdminController extends Controller
             $category['parent_cats'][$cat['parent']][] = $cat['id'];
         }
 
-        return $this->container->view->render($response, 'admin/admin.list.twig', [
+        return $this->container->view->render($response, 'admin/admin.shop.twig', [
           'title' => 'Warenangebot',
-          'active' => 'admin',
+          'active' => 'admin.shop',
           'products' => $products,
-          'id' => $id,
-          'groups' => $cat_groups,
           'categories' => $categories,
+          'groups' => $cat_groups,
+          'id' => $id,
           'category_html' => self::buildCategory(0, $category),
       ]);
     }
@@ -49,13 +49,12 @@ class AdminController extends Controller
 //TODO: In eigene Datei trennen oder anders machen
     public function buildCategory($parent, $category)
     {
-        // $this->container->router->pathFor('admin.list')
         $html = '';
         if (isset($category['parent_cats'][$parent])) {
             $html .= '<ul class="nav nav-sub">';
             foreach ($category['parent_cats'][$parent] as $cat_id) {
                 if (!isset($category['parent_cats'][$cat_id])) {
-                    $html .= "<li><a href='".$this->container->router->pathFor('admin.list').'/'.$category['categories'][$cat_id]['id']."'>".$category['categories'][$cat_id]['name'].'</a></li>';
+                    $html .= "<li><a href='".$this->container->router->pathFor('admin.shop').'/'.$category['categories'][$cat_id]['id']."'>".$category['categories'][$cat_id]['name'].'</a></li>';
                 }
                 if (isset($category['parent_cats'][$cat_id])) {
                     $html .= '<li><a>'.$category['categories'][$cat_id]['name'].'</a>';
@@ -69,7 +68,7 @@ class AdminController extends Controller
         return $html;
     }
 
-    public function postNewProduct($request, $response)
+    public function postShopNewProduct($request, $response)
     {
         $validation = $this->container->validator->validate($request, [
           'name' => v::notEmpty(),
@@ -79,7 +78,7 @@ class AdminController extends Controller
         if ($validation->failed()) {
             $this->container->flash->addMessage('error', 'Fehler bei der Erstellung!');
 
-            return $response->withRedirect($this->container->router->pathFor('admin.list'));
+            return $response->withRedirect($this->container->router->pathFor('admin.shop'));
         }
 
         // Get selected file
@@ -120,10 +119,10 @@ class AdminController extends Controller
 
         $this->container->flash->addMessage('info', 'Produkt erfolgreich hinzugefügt!');
 
-        return $response->withRedirect($this->container->router->pathFor('admin.list'));
+        return $response->withRedirect($this->container->router->pathFor('admin.shop'));
     }
 
-    public function putUpdateProduct($request, $response, $args)
+    public function putShopUpdateProduct($request, $response, $args)
     {
         $validation = $this->container->validator->validate($request, [
           'name' => v::notEmpty(),
@@ -133,7 +132,7 @@ class AdminController extends Controller
         if ($validation->failed()) {
             $this->container->flash->addMessage('error', 'Fehler beim Update!');
 
-            return $response->withRedirect($this->container->router->pathFor('admin.list'));
+            return $response->withRedirect($this->container->router->pathFor('admin.shop'));
         }
         // Get selected file
         $files = $request->getUploadedFiles();
@@ -164,17 +163,19 @@ class AdminController extends Controller
             $product = Product::where('id', $args['id'])->update([
             'name' => $request->getParam('name'),
             'description' => $request->getParam('description'),
+            'maker_id' => $request->getParam('maker_id'),
         ]);
         } else {
             $product = Product::where('id', $args['id'])->update([
             'name' => $request->getParam('name'),
             'description' => $request->getParam('description'),
+            'maker_id' => $request->getParam('maker_id'),
             'image' => $ext,
         ]);
         }
 
         $this->container->flash->addMessage('info', 'Produktdaten erfolgreich geupdatet!');
 
-        return $response->withRedirect($this->container->router->pathFor('admin.list'));
+        return $response->withRedirect($this->container->router->pathFor('admin.shop'));
     }
 }
