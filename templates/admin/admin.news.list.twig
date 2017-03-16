@@ -24,7 +24,9 @@
         <tbody>
           {% for entry in news %}
             <tr>
-              <td>{{ entry.id }}</td>
+              <td>{{ entry.id }}
+                <a href="{{ path_for('admin.news.edit', { 'id': entry.id }) }}">EDIT</a>
+              </td>
               <td>{{ entry.title }}</td>
               <td>
                 {% if entry.text | length > 250 %}

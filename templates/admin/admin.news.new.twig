@@ -14,12 +14,11 @@
         <div class="form-group">
           <label for="text">Inhalt</label>
           <textarea class="form-control" id="text" name="text" autocomplete="off"></textarea>
-
         </div>
 
         <div class="form-group text-center">
           <button type="submit" name="btn-send" class="btn btn-success">Anlegen</button>
-          <button type="button" name="btn-cancel" class="btn btn-danger">Abbrechen</button>
+          <a class="btn btn-default btn-danger" href="{{ path_for('admin.news.list') }}">Abbrechen</a>
         </div>
 
         {{ csrf.field | raw }}

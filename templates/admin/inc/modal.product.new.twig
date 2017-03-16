@@ -7,8 +7,20 @@
         <input type="text" class="form-control" id="name-0" name="name" value="{{ name }}" maxlength="250" required>
       </div>
       <div class="form-group">
-        <label for="description-0">Text:</label>
+        <label for="description-0">Beschreibung:</label>
         <textarea class="form-control noresize" id="description-0" rows="10" required name="description">{{ description }}</textarea>
+      </div>
+      <div class="form-group">
+        <label for="category-{{ id }}">Kategorie:</label>
+        <select id="maker-{{ id }}" name="maker_id">
+          {% for group in groups %}
+            <optgroup label="{{ group.name }}">
+              {% for category in categories if category.parent == group.id %}
+                <option value="{{ category.id }}" {% if category.id == maker_id %} selected="selected" {% endif %}>{{ category.name }}</option>
+              {% endfor %}
+            </optgroup>
+          {% endfor %}
+        </select>
       </div>
       <div class="form-group">
         <label for="file-{{ id }}">

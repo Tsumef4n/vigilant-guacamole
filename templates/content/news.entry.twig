@@ -1,10 +1,10 @@
 <article>
-  <h2 class="guestbook-header">{{ entry.title }}</h2>
-  <h5 class="guestbook-header">
-    <i>Veröffentlicht am</i>
+  <div class="news-header">{{ entry.title }}</div>
+  <div class="news-entry">{{ entry.text|raw }}</div>
+  <div class="news-footer">
+    <i>Verfasst am</i>
     {{ entry.created_at|date("d.m.Y") }}
     <i>um</i>
     {{ entry.created_at|date("H:i") }}
-  </h5>
-  <p>{{ entry.text }}</p>
+  </div>
 </article>

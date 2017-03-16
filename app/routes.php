@@ -13,16 +13,19 @@ use App\Middleware\GuestMiddleware;
 
 // Routen nur fuer bestimmte Gruppen freigeben
 $app->group('', function () {
+    // News Routing
     $this->get('/admin/news/list', 'AdminController:getNewsList')->setName('admin.news.list');
-    $this->get('/admin/news/edit/{id}', 'AdminController:getNewsSingle')->setName('admin.news.edit');
+    $this->get('/admin/news/edit/{id}', 'AdminController:getNewsEdit')->setName('admin.news.edit');
+    $this->post('/admin/news/edit/{id}', 'AdminController:postNewsEdit');
     $this->get('/admin/news/new', 'AdminController:getNewsNew')->setName('admin.news.new');
-
+    $this->post('/admin/news/new', 'AdminController:postNewsNew');
+    // Shop Routing
     $this->get('/admin/shop[/{id}]', 'AdminController:getShopList')->setName('admin.shop');
     $this->post('/admin/shop', 'AdminController:postShopNewProduct');
     $this->post('/admin/shop/{id}', 'AdminController:putShopUpdateProduct');
-
+    // Kulinarisches Routing
     $this->get('/admin/kulinarisches[/{id}]', 'AdminController:getKulinarischesList')->setName('admin.kulinarisches');
-
+    // Presse Routing
     $this->get('/admin/press[/{id}]', 'AdminController:getPressList')->setName('admin.press');
 
     // Nur User sollen User erstellen koennen

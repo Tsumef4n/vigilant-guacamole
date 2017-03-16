@@ -17,9 +17,17 @@
 <script src="{{ base_url() }}/js/featherlight.min.js"></script>
 <script src="{{ base_url() }}/js/master.js"></script>
 <script src="{{ base_url() }}/DataTables/datatables.min.js"></script>
+<script src="{{ base_url() }}/ckeditor/ckeditor.js"></script>
 <script>
   $(document).ready(function() {
-    $('#dataTable').DataTable();
+    $('#dataTable').DataTable({
+      "order": [
+        [0, "desc"]
+      ]
+    });
+    CKEDITOR.replace('text');
+    CKEDITOR.add
+    CKEDITOR.config.contentsCss = '{{ base_url() }}/css/master.css';
   });
 </script>
 </body>

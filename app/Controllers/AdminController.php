@@ -30,6 +30,73 @@ class AdminController extends Controller
       ]);
     }
 
+    public function postNewsNew($request, $response)
+    {
+        $validation = $this->container->validator->validate($request, [
+          'title' => v::notEmpty(),
+          'text' => v::notEmpty(),
+        ]);
+
+        if ($validation->failed()) {
+            $this->container->flash->addMessage('error', 'Fehler bei der Erstellung!');
+
+            return $response->withRedirect($this->container->router->pathFor('admin.news.new'));
+        }
+
+        $news = News::create([
+          'title' => $request->getParam('title'),
+          'text' => $request->getParam('text'),
+        ]);
+
+        $this->container->flash->addMessage('info', 'News erfolgreich hinzugefügt!');
+
+        return $response->withRedirect($this->container->router->pathFor('admin.news.list'));
+    }
+
+    public function getNewsEdit($request, $response, $args)
+    {
+        $id = $args['id'];
+
+        $news = News::where('id', $id)->first();
+        // check if user found
+        if (!$news) {
+            //falls es die id nicht gibt, weil z.b. jemand so auf die seite ging
+            //return false;
+        }
+
+        return $this->container->view->render($response, 'admin/admin.news.edit.twig', [
+          'title' => 'News bearbeiten',
+          'active' => 'admin.news',
+          'id' => $id,
+          'news' => $news,
+      ]);
+    }
+
+    public function postNewsEdit($request, $response, $args)
+    {
+        $id = $args['id'];
+
+        $validation = $this->container->validator->validate($request, [
+          'title' => v::notEmpty(),
+          'text' => v::notEmpty(),
+        ]);
+
+        if ($validation->failed()) {
+            $this->container->flash->addMessage('error', 'Fehler beim Update!');
+
+            return $response->withRedirect($this->container->router->pathFor('admin.news.edit', ['id' => $id]));
+        }
+
+        $product = News::where('id', $args['id'])->update([
+            'title' => $request->getParam('title'),
+            'text' => $request->getParam('text'),
+        ]);
+
+        $this->container->flash->addMessage('info', 'News erfolgreich geupdatet!');
+
+        return $response->withRedirect($this->container->router->pathFor('admin.news.list'));
+    }
+
     public function getShopList($request, $response, $args)
     {
         $id = 0;
@@ -104,8 +171,18 @@ class AdminController extends Controller
         // Get selected file
         $files = $request->getUploadedFiles();
         $ext = '';
-        if (empty($files['file'])) {
+        $file = $files['file'];
+
+        if ($file->file == '') {
             // Keine Datei ausgewaehlt...
+            $nextId = Product::insertGetId([
+                'name' => $request->getParam('name'),
+                'description' => $request->getParam('description'),
+                'maker_id' => $request->getParam('maker_id'),
+                'image' => 'png',
+            ]);
+            copy('public/images/fix/platzhalter.png', 'public/images/products/'.$nextId.'.png');
+            $this->container->flash->addMessage('info', 'Ohne Bild');
         } else {
             $file = $files['file'];
             // Upload zu big
@@ -117,24 +194,15 @@ class AdminController extends Controller
             if ($file->getError() === UPLOAD_ERR_OK) {
                 $uploadFileName = $file->getClientFilename();
                 $ext = pathinfo($uploadFileName, PATHINFO_EXTENSION);
-                $file->moveTo('public/images/products/'.$args['id'].'.'.$ext);
+                $nextId = Product::insertGetId([
+                    'name' => $request->getParam('name'),
+                    'description' => $request->getParam('description'),
+                    'maker_id' => $request->getParam('maker_id'),
+                    'image' => $ext,
+                ]);
+                $file->moveTo('public/images/products/'.$nextId.'.'.$ext);
+                $this->container->flash->addMessage('info', 'Mit Bild');
             }
-        }
-        // check, ob neues Bild
-        if ($ext == '') {
-            // getParam uses name of element, not the id
-            $user = Product::create([
-          'name' => $request->getParam('name'),
-          'description' => $request->getParam('description'),
-          'maker_id' => 1,
-        ]);
-        } else {
-            $user = Product::create([
-          'name' => $request->getParam('name'),
-          'description' => $request->getParam('description'),
-          'maker_id' => 1,
-          'image' => $ext,
-        ]);
         }
 
         $this->container->flash->addMessage('info', 'Produkt erfolgreich hinzugefügt!');
