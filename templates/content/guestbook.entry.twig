@@ -1,8 +1,15 @@
 <div>
-  <p class="guestbook-header">{{ entry.name }}
+  <p class="guestbook-header">
+    <b>{{ entry.name }}</b>
+    {% if auth.check %}
+      ({{ entry.email }})
+    {% endif %}
     schrieb am
     {{ entry.created_at|date("d.m.Y") }}
     um
     {{ entry.created_at|date("H:i") }}:</p>
   <p>{{ entry.text }}</p>
+  {% if auth.check %}
+    <p>EINTRAG LOESCHEN LINK?</p>
+  {% endif %}
 </div>

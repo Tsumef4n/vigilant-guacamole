@@ -24,45 +24,33 @@ class ShopController extends Controller
         //get groups for categories //NOTE: abfragen reduzieren?
         $cat_groups = Cat_Group::orderBy('name')->get();
 
-        //create a multidimensional array to hold a list of category and parent category
-        $category = array(
-            'categories' => array(),
-            'parent_cats' => array(),
-        );
-        //build the array lists with data from the category table
-        foreach ($categories as $cat) {
-            $category['categories'][$cat['id']] = $cat;
-            $category['parent_cats'][$cat['parent']][] = $cat['id'];
-        }
+        $cat_html = self::buildCategory($cat_groups, $categories);
 
         return $this->container->view->render($response, 'shop.list.twig', [
           'title' => 'Warenangebot',
           'active' => 'stock',
           'products' => $products,
           'id' => $id,
-          'category_html' => self::buildCategory(0, $category),
+          'category_html' => $cat_html,
       ]);
     }
 
-  //TODO: In eigene Datei trennen oder anders machen
-      public function buildCategory($parent, $category)
-      {
-          $html = '';
-          if (isset($category['parent_cats'][$parent])) {
-              $html .= '<ul class="nav nav-sub">';
-              foreach ($category['parent_cats'][$parent] as $cat_id) {
-                  if (!isset($category['parent_cats'][$cat_id])) {
-                      $html .= "<li><a href='".$this->container->router->pathFor('stock').'/'.$category['categories'][$cat_id]['id']."'>".$category['categories'][$cat_id]['name'].'</a></li>';
-                  }
-                  if (isset($category['parent_cats'][$cat_id])) {
-                      $html .= '<li><a>'.$category['categories'][$cat_id]['name'].'</a>';
-                      $html .= self::buildCategory($cat_id, $category);
-                      $html .= '</li>';
-                  }
-              }
-              $html .= '</ul>';
-          }
+    public function buildCategory($cat_groups, $categories)
+    {
+        $html = '';
+        $html .= '<ul class="nav nav-sub">';
+        foreach ($cat_groups as $cat_group) {
+            $html .= '<li><div class="nav-group">'.$cat_group['name'].'</div>';
+            $html .= '<ul class="nav nav-sub">';
+            foreach ($categories as $category) {
+                if ($category['parent'] == $cat_group['id']) {
+                    $html .= "<li><a href='".$this->container->router->pathFor('stock').'/'.$category['id']."'>".$category['name'].'</a></li>';
+                }
+            }
+            $html .= '</ul>';
+        }
+        $html .= '</ul>';
 
-          return $html;
-      }
+        return $html;
+    }
 }

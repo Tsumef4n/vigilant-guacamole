@@ -111,51 +111,54 @@ class AdminController extends Controller
         //get groups for categories //NOTE: abfragen reduzieren?
         $cat_groups = Cat_Group::orderBy('name')->get();
 
-        //create a multidimensional array to hold a list of category and parent category
-        $category = array(
-            'categories' => array(),
-            'parent_cats' => array(),
-        );
-        //build the array lists with data from the category table
-        foreach ($categories as $cat) {
-            $category['categories'][$cat['id']] = $cat;
-            $category['parent_cats'][$cat['parent']][] = $cat['id'];
-        }
+        $cat_html = self::buildCategory($cat_groups, $categories);
 
-        return $this->container->view->render($response, 'admin/admin.shop.twig', [
+        return $this->container->view->render($response, 'admin/admin.shop.list.twig', [
           'title' => 'Warenangebot',
           'active' => 'admin.shop',
           'products' => $products,
           'categories' => $categories,
           'groups' => $cat_groups,
           'id' => $id,
-          'category_html' => self::buildCategory(0, $category),
+          'category_html' => $cat_html,
       ]);
     }
 
-//TODO: In eigene Datei trennen oder anders machen
-    public function buildCategory($parent, $category)
+    public function buildCategory($cat_groups, $categories)
     {
         $html = '';
-        if (isset($category['parent_cats'][$parent])) {
+        $html .= '<ul class="nav nav-sub">';
+        foreach ($cat_groups as $cat_group) {
+            $html .= '<li><div class="nav-group">'.$cat_group['name'].'</div>';
             $html .= '<ul class="nav nav-sub">';
-            foreach ($category['parent_cats'][$parent] as $cat_id) {
-                if (!isset($category['parent_cats'][$cat_id])) {
-                    $html .= "<li><a href='".$this->container->router->pathFor('admin.shop').'/'.$category['categories'][$cat_id]['id']."'>".$category['categories'][$cat_id]['name'].'</a></li>';
-                }
-                if (isset($category['parent_cats'][$cat_id])) {
-                    $html .= '<li><a>'.$category['categories'][$cat_id]['name'].'</a>';
-                    $html .= self::buildCategory($cat_id, $category);
-                    $html .= '</li>';
+            foreach ($categories as $category) {
+                if ($category['parent'] == $cat_group['id']) {
+                    $html .= "<li><a href='".$this->container->router->pathFor('admin.shop.list').'/'.$category['id']."'>".$category['name'].'</a></li>';
                 }
             }
             $html .= '</ul>';
         }
+        $html .= '</ul>';
 
         return $html;
     }
 
-    public function postShopNewProduct($request, $response)
+    public function getShopNew($request, $response)
+    {
+        //get all categories
+        $categories = Category::orderBy('parent')->orderBy('name')->get();
+        //get groups for categories //NOTE: abfragen reduzieren?
+        $cat_groups = Cat_Group::orderBy('name')->get();
+
+        return $this->container->view->render($response, 'admin/admin.shop.new.twig', [
+          'title' => 'Neues Produkt',
+          'active' => 'admin.shop',
+          'categories' => $categories,
+          'groups' => $cat_groups,
+      ]);
+    }
+
+    public function postShopNew($request, $response)
     {
         $validation = $this->container->validator->validate($request, [
           'name' => v::notEmpty(),
@@ -165,7 +168,7 @@ class AdminController extends Controller
         if ($validation->failed()) {
             $this->container->flash->addMessage('error', 'Fehler bei der Erstellung!');
 
-            return $response->withRedirect($this->container->router->pathFor('admin.shop'));
+            return $response->withRedirect($this->container->router->pathFor('admin.shop.new'));
         }
 
         // Get selected file
@@ -182,7 +185,6 @@ class AdminController extends Controller
                 'image' => 'png',
             ]);
             copy('public/images/fix/platzhalter.png', 'public/images/products/'.$nextId.'.png');
-            $this->container->flash->addMessage('info', 'Ohne Bild');
         } else {
             $file = $files['file'];
             // Upload zu big
@@ -201,13 +203,12 @@ class AdminController extends Controller
                     'image' => $ext,
                 ]);
                 $file->moveTo('public/images/products/'.$nextId.'.'.$ext);
-                $this->container->flash->addMessage('info', 'Mit Bild');
             }
         }
 
         $this->container->flash->addMessage('info', 'Produkt erfolgreich hinzugefügt!');
 
-        return $response->withRedirect($this->container->router->pathFor('admin.shop'));
+        return $response->withRedirect($this->container->router->pathFor('admin.shop.list'));
     }
 
     public function putShopUpdateProduct($request, $response, $args)

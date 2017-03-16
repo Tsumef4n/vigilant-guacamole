@@ -6,10 +6,7 @@
         <h2>Produktliste</h2>
       </div>
       <div class="col-md-6 text-right">
-        <button type="button" class="btn btn-primary fixed-button-width" href=# data-featherlight="#fl0" data-featherlight-close-on-click="false">Neues Produkt</button>
-        {{ include('admin/inc/modal.product.new.twig', {
-                  id: "0"
-                  }) }}
+        <a class="btn btn-default btn-primary" href="{{ path_for('admin.shop.new') }}">Neues Produkt</a>
       </div>
     </div>
     <div class="table-responsive">
@@ -24,8 +21,10 @@
         </thead>
         <tbody>
           {% for product in products %}
-            <tr href=# data-featherlight="#fl{{ product.id }}" data-featherlight-close-on-click="false">
-              <td>{{ product.id }}</td>
+            <tr>
+              <td>{{ product.id }}
+                <a href="{{ path_for('admin.news.edit', { 'id': product.id }) }}">EDIT</a>
+              </td>
               <td>{{ product.name }}</td>
               <td>
                 {% if product.description | length > 250 %}
@@ -44,14 +43,5 @@
           {% endfor %}
         </tbody>
       </table>
-
-      {% for product in products %}
-        {{ include('admin/inc/modal.product.edit.twig', {
-              id: product.id,
-              name: product.name,
-              description: product.description,
-              maker_id: product.maker_id
-              }) }}
-      {% endfor %}
     </div>
   {% endblock %}

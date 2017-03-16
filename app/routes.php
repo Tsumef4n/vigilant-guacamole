@@ -20,9 +20,11 @@ $app->group('', function () {
     $this->get('/admin/news/new', 'AdminController:getNewsNew')->setName('admin.news.new');
     $this->post('/admin/news/new', 'AdminController:postNewsNew');
     // Shop Routing
-    $this->get('/admin/shop[/{id}]', 'AdminController:getShopList')->setName('admin.shop');
-    $this->post('/admin/shop', 'AdminController:postShopNewProduct');
-    $this->post('/admin/shop/{id}', 'AdminController:putShopUpdateProduct');
+    $this->get('/admin/shop/list[/{id}]', 'AdminController:getShopList')->setName('admin.shop.list');
+    $this->get('/admin/shop/edit/{id}', 'AdminController:getShopEdit')->setName('admin.shop.edit');
+    $this->post('/admin/shop/edit/{id}', 'AdminController:postShopEdit');
+    $this->get('/admin/shop/new', 'AdminController:getShopNew')->setName('admin.shop.new');
+    $this->post('/admin/shop/new', 'AdminController:postShopNew');
     // Kulinarisches Routing
     $this->get('/admin/kulinarisches[/{id}]', 'AdminController:getKulinarischesList')->setName('admin.kulinarisches');
     // Presse Routing

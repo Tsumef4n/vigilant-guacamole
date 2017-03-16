@@ -7,11 +7,10 @@
         <h1>Gästebuch</h1>
         {% for entry in guestbook %}
           {% include 'content/guestbook.entry.twig' %}
+          <div class='site-divider'></div>
         {% else %}
           <p>Noch kein Eintrag vorhanden :(</p>
         {% endfor %}
-
-        <div class='site-divider'></div>
 
         <form class="form-guestbook" action="{{ path_for('guestbook') }}" method="post">
           <h4>Neuer Eintrag</h4>
