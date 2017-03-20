@@ -4,10 +4,27 @@
   <div class="container content-font">
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2">
-        <h1>Was die Presse schreibt</h1>
+        <h1>Presse</h1>
         <div class="site-divider"></div>
-        <p>for loop mit Zeitungsscans</p>
+        {% for entry in press %}
+          {% include 'content/press.entry.twig' %}
+          <div class="news-divider"></div>
+        {% else %}
+          <p>Kein Eintrag vorhanden</p>
+        {% endfor %}
       </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-lg-offset-2">
+        {% if press is not empty %}
+          <a href="{{ path_for('press') }}/{{ page + 1 }}">Ältere Pressenachrichten laden</a>
+        {% endif %}
+      </div>
+      {% if page >= 2 %}
+        <div class="col-lg-2">
+          <a href="{{ path_for('press') }}/{{ page - 1 }}">Neuere Pressenachrichten laden</a>
+        </div>
+      {% endif %}
     </div>
   </div>
 {% endblock %}

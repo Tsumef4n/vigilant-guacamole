@@ -10,6 +10,11 @@
     {{ entry.created_at|date("H:i") }}:</p>
   <p>{{ entry.text }}</p>
   {% if auth.check %}
-    <p>EINTRAG LOESCHEN LINK?</p>
+    <p>
+      <form method="POST" onsubmit="return confirm('Soll der Eintrag gelöscht werden?');">
+        <button type="submit" class="btn btn-danger">Delete</button>
+        {{ csrf.field | raw }}
+      </form>
+    </p>
   {% endif %}
 </div>

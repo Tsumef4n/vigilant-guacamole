@@ -25,9 +25,12 @@
         [0, "desc"]
       ]
     });
-    CKEDITOR.replace('text');
+    CKEDITOR.replace('text', {
+      config.extraPlugins = 'uploadimage,uploadwidget';
+    });
     CKEDITOR.add
     CKEDITOR.config.contentsCss = '{{ base_url() }}/css/master.css';
+
   });
 </script>
 </body>

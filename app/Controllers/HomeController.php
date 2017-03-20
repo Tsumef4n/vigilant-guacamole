@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\News;
+use App\Models\Press;
 use Slim\Views\Twig as View;
 
 class HomeController extends Controller
@@ -33,9 +34,18 @@ class HomeController extends Controller
 
     public function press($request, $response)
     {
+        $page = 1;
+        if (isset($args['page'])) {
+            $page = $args['page'];
+        }
+        $offset = ($page - 1) * 5;
+        $press = Press::orderBy('created_at', 'DESC')->limit(5)->offset($offset)->get();
+
         return $this->container->view->render($response, 'press.twig', [
         'title' => 'Presse',
         'active' => 'press',
+        'press' => $press,
+        'page' => $page,
     ]);
     }
 

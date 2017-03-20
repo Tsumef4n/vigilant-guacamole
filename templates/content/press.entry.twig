@@ -1,0 +1,10 @@
+<article>
+  <div class="news-header">{{ entry.title }}</div>
+  <div class="news-entry">{{ entry.text|raw }}</div>
+  <div class="news-footer">
+    <i>Verfasst am</i>
+    {{ entry.created_at|date("d.m.Y") }}
+    <i>um</i>
+    {{ entry.created_at|date("H:i") }}
+  </div>
+</article>

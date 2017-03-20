@@ -22,7 +22,7 @@
             {% for group in groups %}
               <optgroup label="{{ group.name }}">
                 {% for category in categories if category.parent == group.id %}
-                  <option value="{{ category.id }}" {% if category.id == maker_id %} selected="selected" {% endif %}>{{ category.name }}</option>
+                  <option value="{{ category.id }}">{{ category.name }}</option>
                 {% endfor %}
               </optgroup>
             {% endfor %}

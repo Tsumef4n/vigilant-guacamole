@@ -28,7 +28,11 @@ $app->group('', function () {
     // Kulinarisches Routing
     $this->get('/admin/kulinarisches[/{id}]', 'AdminController:getKulinarischesList')->setName('admin.kulinarisches');
     // Presse Routing
-    $this->get('/admin/press[/{id}]', 'AdminController:getPressList')->setName('admin.press');
+    $this->get('/admin/press/list', 'AdminController:getPressList')->setName('admin.press.list');
+    $this->get('/admin/press/edit/{id}', 'AdminController:getPressEdit')->setName('admin.press.edit');
+    $this->post('/admin/press/edit/{id}', 'AdminController:postPressEdit');
+    $this->get('/admin/press/new', 'AdminController:getPressNew')->setName('admin.press.new');
+    $this->post('/admin/press/new', 'AdminController:postPressNew');
 
     // Nur User sollen User erstellen koennen
     $this->get('/auth/register', 'AuthController:getRegister')->setName('auth.register');
@@ -53,7 +57,7 @@ $app->get('/news[/{page}]', 'HomeController:news')->setName('news');
 $app->get('/stock[/{id}]', 'ShopController:stock')->setName('stock');
 $app->get('/kulinarisches', 'HomeController:kulinarisches')->setName('kulinarisches');
 $app->get('/aboutUs', 'HomeController:aboutUs')->setName('aboutUs');
-$app->get('/press', 'HomeController:press')->setName('press');
+$app->get('/press[/{page}]', 'HomeController:press')->setName('press');
 $app->get('/guestbook', 'GuestbookController:getList')->setName('guestbook');
 $app->post('/guestbook', 'GuestbookController:postNewEntry');
 $app->get('/approach', 'HomeController:approach')->setName('approach');

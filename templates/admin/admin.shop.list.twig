@@ -23,7 +23,7 @@
           {% for product in products %}
             <tr>
               <td>{{ product.id }}
-                <a href="{{ path_for('admin.news.edit', { 'id': product.id }) }}">EDIT</a>
+                <a href="{{ path_for('admin.shop.edit', { 'id': product.id }) }}">EDIT</a>
               </td>
               <td>{{ product.name }}</td>
               <td>

@@ -1,0 +1,59 @@
+{% extends 'admin/inc/layout.main.twig' %}
+{% block content %}
+  <div class="row">
+
+    <form class="col-sm-8 col-sm-offset-2" action="{{ path_for('admin.shop.new') }}" method="post" enctype="multipart/form-data">
+      <fieldset>
+        <legend>Produkt bearbeiten</legend>
+
+        <div class="form-group">
+          <label for="name">Produktname</label>
+          <input type="text" name="name" id="name" class="form-control" placeholder="Ein toller Produktname" value="{{ product.name }}" autocomplete="off" required>
+        </div>
+
+        <div class="form-group">
+          <label for="text">Beschreibung</label>
+          <textarea class="form-control" id="text" name="description" autocomplete="off">{{ product.description }}</textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="category">Kategorie:</label>
+          <select id="maker" name="maker_id">
+            {% for group in groups %}
+              <optgroup label="{{ group.name }}">
+                {% for category in categories if category.parent == group.id %}
+                  <option value="{{ category.id }}" {% if category.id == product.maker_id %} selected="selected" {% endif %}>{{ category.name }}</option>
+                {% endfor %}
+              </optgroup>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Aktuelles Bild:</label>
+          <img src="/../images/products/{{ product.id }}.{{ product.image }}">
+        </div>
+
+        <div class="form-group">
+          <label for="file">
+            <span class="glyphicon glyphicon-save"></span>
+            &ensp; Bild hochladen (max. 1MB)
+          </label>
+          <input type="file" id="file" name="file" accept=".bmp, .gif, .jpeg, .jpg, .png"></input>
+          <h4>
+            <span class="label label-default download-pic col-md-pull-1"></span>
+          </h4>
+        </div>
+
+        <div class="form-group text-center">
+          <button type="submit" name="btn-send" class="btn btn-success">Anlegen</button>
+          <a class="btn btn-default btn-danger" href="{{ path_for('admin.shop.list') }}">Abbrechen</a>
+        </div>
+
+        {{ csrf.field | raw }}
+      </form>
+
+    </fieldset>
+  </form>
+</div>
+{% endblock %}

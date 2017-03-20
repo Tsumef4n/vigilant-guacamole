@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Cat_Group;
 use App\Models\News;
+use App\Models\Press;
 use Slim\Views\Twig as View;
 use Respect\Validation\Validator as v;
 
@@ -211,7 +212,33 @@ class AdminController extends Controller
         return $response->withRedirect($this->container->router->pathFor('admin.shop.list'));
     }
 
-    public function putShopUpdateProduct($request, $response, $args)
+    public function getShopEdit($request, $response, $args)
+    {
+        $id = $args['id'];
+
+        $product = Product::where('id', $id)->first();
+        // check if user found
+        if (!$product) {
+            //falls es die id nicht gibt, weil z.b. jemand so auf die seite ging
+            //return false;
+        }
+
+        //get all categories
+        $categories = Category::orderBy('parent')->orderBy('name')->get();
+        //get groups for categories //NOTE: abfragen reduzieren?
+        $cat_groups = Cat_Group::orderBy('name')->get();
+
+        return $this->container->view->render($response, 'admin/admin.shop.edit.twig', [
+          'title' => 'Produkt bearbeiten',
+          'active' => 'admin.shop',
+          'categories' => $categories,
+          'groups' => $cat_groups,
+          'id' => $id,
+          'product' => $product,
+      ]);
+    }
+
+    public function putShopEdit($request, $response, $args)
     {
         $validation = $this->container->validator->validate($request, [
           'name' => v::notEmpty(),
@@ -266,5 +293,91 @@ class AdminController extends Controller
         $this->container->flash->addMessage('info', 'Produktdaten erfolgreich geupdatet!');
 
         return $response->withRedirect($this->container->router->pathFor('admin.shop'));
+    }
+
+    public function getPressList($request, $response)
+    {
+        $press = Press::orderBy('created_at')->get();
+
+        return $this->container->view->render($response, 'admin/admin.press.list.twig', [
+          'title' => 'Presse',
+          'active' => 'admin.press',
+          'press' => $press,
+      ]);
+    }
+
+    public function getPressNew($request, $response)
+    {
+        return $this->container->view->render($response, 'admin/admin.press.new.twig', [
+          'title' => 'Neuer Presseeintrag',
+          'active' => 'admin.press',
+      ]);
+    }
+
+    public function postPressNew($request, $response)
+    {
+        $validation = $this->container->validator->validate($request, [
+          'title' => v::notEmpty(),
+          'text' => v::notEmpty(),
+        ]);
+
+        if ($validation->failed()) {
+            $this->container->flash->addMessage('error', 'Fehler bei der Erstellung!');
+
+            return $response->withRedirect($this->container->router->pathFor('admin.press.new'));
+        }
+
+        $press = Press::create([
+          'title' => $request->getParam('title'),
+          'text' => $request->getParam('text'),
+        ]);
+
+        $this->container->flash->addMessage('info', 'Presseeintrag erfolgreich hinzugefügt!');
+
+        return $response->withRedirect($this->container->router->pathFor('admin.press.list'));
+    }
+
+    public function getPressEdit($request, $response, $args)
+    {
+        $id = $args['id'];
+
+        $press = Press::where('id', $id)->first();
+        // check if user found
+        if (!$press) {
+            //falls es die id nicht gibt, weil z.b. jemand so auf die seite ging
+            //return false;
+        }
+
+        return $this->container->view->render($response, 'admin/admin.press.edit.twig', [
+          'title' => 'Presseeintrag bearbeiten',
+          'active' => 'admin.press',
+          'id' => $id,
+          'press' => $press,
+      ]);
+    }
+
+    public function postPressEdit($request, $response, $args)
+    {
+        $id = $args['id'];
+
+        $validation = $this->container->validator->validate($request, [
+          'title' => v::notEmpty(),
+          'text' => v::notEmpty(),
+        ]);
+
+        if ($validation->failed()) {
+            $this->container->flash->addMessage('error', 'Fehler beim Update!');
+
+            return $response->withRedirect($this->container->router->pathFor('admin.press.edit', ['id' => $id]));
+        }
+
+        $product = Press::where('id', $args['id'])->update([
+            'title' => $request->getParam('title'),
+            'text' => $request->getParam('text'),
+        ]);
+
+        $this->container->flash->addMessage('info', 'Presseeintrag erfolgreich geupdatet!');
+
+        return $response->withRedirect($this->container->router->pathFor('admin.press.list'));
     }
 }

@@ -1,0 +1,30 @@
+{% extends 'admin/inc/layout.main.twig' %}
+{% block content %}
+  <div class="row">
+
+    <form class="col-sm-8 col-sm-offset-2" action="{{ path_for('admin.press.edit', { 'id': press.id}) }}" method="post">
+      <fieldset>
+        <legend>Presseeintrag bearbeiten</legend>
+
+        <div class="form-group">
+          <label for="title">Titel</label>
+          <input type="text" name="title" id="title" class="form-control" placeholder="Toller Titel" value="{{ press.title }}" autocomplete="off" required>
+        </div>
+
+        <div class="form-group">
+          <label for="text">Inhalt</label>
+          <textarea class="form-control" id="text" name="text" autocomplete="off">{{ press.text }}</textarea>
+        </div>
+
+        <div class="form-group text-center">
+          <button type="submit" name="btn-send" class="btn btn-success">Updaten</button>
+          <a class="btn btn-default btn-danger" href="{{ path_for('admin.press.list') }}">Abbrechen</a>
+        </div>
+
+        {{ csrf.field | raw }}
+      </form>
+
+    </fieldset>
+  </form>
+</div>
+{% endblock %}
