@@ -6,7 +6,9 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Cat_Group;
 use App\Models\News;
+use App\Models\Kulinarisches;
 use App\Models\Press;
+use App\Models\Guestbook;
 use Slim\Views\Twig as View;
 use Respect\Validation\Validator as v;
 
@@ -109,7 +111,7 @@ class AdminController extends Controller
         }
         //get all categories
         $categories = Category::orderBy('parent')->orderBy('name')->get();
-        //get groups for categories //NOTE: abfragen reduzieren?
+        //get groups for categories
         $cat_groups = Cat_Group::orderBy('name')->get();
 
         $cat_html = self::buildCategory($cat_groups, $categories);
@@ -148,7 +150,7 @@ class AdminController extends Controller
     {
         //get all categories
         $categories = Category::orderBy('parent')->orderBy('name')->get();
-        //get groups for categories //NOTE: abfragen reduzieren?
+        //get groups for categories
         $cat_groups = Cat_Group::orderBy('name')->get();
 
         return $this->container->view->render($response, 'admin/admin.shop.new.twig', [
@@ -225,7 +227,7 @@ class AdminController extends Controller
 
         //get all categories
         $categories = Category::orderBy('parent')->orderBy('name')->get();
-        //get groups for categories //NOTE: abfragen reduzieren?
+        //get groups for categories
         $cat_groups = Cat_Group::orderBy('name')->get();
 
         return $this->container->view->render($response, 'admin/admin.shop.edit.twig', [
@@ -293,6 +295,107 @@ class AdminController extends Controller
         $this->container->flash->addMessage('info', 'Produktdaten erfolgreich geupdatet!');
 
         return $response->withRedirect($this->container->router->pathFor('admin.shop'));
+    }
+
+    public function getKulinarisches($request, $response)
+    {
+        $cur_month = date('n');
+        $cur_year = date('Y');
+
+        return $this->container->view->render($response, 'admin/admin.kulinarisches.twig', [
+          'title' => 'Kulinarisches',
+          'active' => 'admin.kulinarisches',
+          'cur_month' => $cur_month,
+          'cur_year' => $cur_year,
+      ]);
+    }
+
+    public function postKulinarisches($request, $response)
+    {
+        $cur_month = date('n');
+        $cur_year = date('Y');
+        $sel_month = $request->getParam('month');
+        $sel_year = $request->getParam('year');
+
+        $kulinarisches = Kulinarisches::where('month', $sel_month)->where('year', $sel_year)->get()->first();
+
+        return $this->container->view->render($response, 'admin/admin.kulinarisches.twig', [
+        'title' => 'Kulinarisches',
+        'active' => 'admin.kulinarisches',
+        'cur_month' => $cur_month,
+        'cur_year' => $cur_year,
+        'sel_month' => $sel_month,
+        'sel_year' => $sel_year,
+        'kulinarisches' => $kulinarisches,
+    ]);
+    }
+
+    public function postKulinarischesNew($request, $response, $args)
+    {
+        // Get selected file
+        $files = $request->getUploadedFiles();
+        $ext = '';
+        $file = $files['file'];
+
+        if ($file->file == '') {
+            // Keine Datei ausgewaehlt...
+            $this->container->flash->addMessage('error', 'Kein Bild ausgewählt!');
+        } else {
+            $file = $files['file'];
+            // Upload zu big
+            if ($file->getError() === UPLOAD_ERR_INI_SIZE || $file->getError() === UPLOAD_ERR_FORM_SIZE) {
+                $this->container->flash->addMessage('error', 'Fehler beim Upload. Bild zu groß!');
+                $ext = '';
+            }
+            //  Upload new file
+            if ($file->getError() === UPLOAD_ERR_OK) {
+                $uploadFileName = $file->getClientFilename();
+                $ext = pathinfo($uploadFileName, PATHINFO_EXTENSION);
+                $nextId = Kulinarisches::create([
+                    'month' => $args['month'],
+                    'year' => $args['year'],
+                    'image' => $ext,
+                ]);
+                $file->moveTo('public/images/kulinarisches/'.$args['year'].'-'.$args['month'].'.'.$ext);
+            }
+        }
+
+        $this->container->flash->addMessage('info', 'Erfolgreich hinzugefügt!');
+
+        return $response->withRedirect($this->container->router->pathFor('admin.kulinarisches'));
+    }
+
+    public function postKulinarischesEdit($request, $response, $args)
+    {
+        // Get selected file
+        $files = $request->getUploadedFiles();
+        $ext = '';
+        $file = $files['file'];
+
+        if ($file->file == '') {
+            // Keine Datei ausgewaehlt...
+            $this->container->flash->addMessage('error', 'Kein Bild ausgewählt!');
+        } else {
+            $file = $files['file'];
+            // Upload zu big
+            if ($file->getError() === UPLOAD_ERR_INI_SIZE || $file->getError() === UPLOAD_ERR_FORM_SIZE) {
+                $this->container->flash->addMessage('error', 'Fehler beim Upload. Bild zu groß!');
+                $ext = '';
+            }
+            //  Upload new file
+            if ($file->getError() === UPLOAD_ERR_OK) {
+                $uploadFileName = $file->getClientFilename();
+                $ext = pathinfo($uploadFileName, PATHINFO_EXTENSION);
+                $nextId = Kulinarisches::where('id', $args['id'])->update([
+                    'image' => $ext,
+                ]);
+                $file->moveTo('public/images/kulinarisches/'.$args['year'].'-'.$args['month'].'.'.$ext);
+            }
+        }
+
+        $this->container->flash->addMessage('info', 'Erfolgreich bearbeitet!');
+
+        return $response->withRedirect($this->container->router->pathFor('admin.kulinarisches'));
     }
 
     public function getPressList($request, $response)
@@ -379,5 +482,16 @@ class AdminController extends Controller
         $this->container->flash->addMessage('info', 'Presseeintrag erfolgreich geupdatet!');
 
         return $response->withRedirect($this->container->router->pathFor('admin.press.list'));
+    }
+
+    public function postGuestbookDelete($request, $response, $args)
+    {
+        $id = $args['id'];
+
+        $Guestbook = Guestbook::where('id', $args['id'])->delete();
+
+        $this->container->flash->addMessage('info', 'Eintrag erfolgreich gelöscht!');
+
+        return $response->withRedirect($this->container->router->pathFor('guestbook'));
     }
 }

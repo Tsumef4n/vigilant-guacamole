@@ -11,8 +11,8 @@
   <p>{{ entry.text }}</p>
   {% if auth.check %}
     <p>
-      <form method="POST" onsubmit="return confirm('Soll der Eintrag gelöscht werden?');">
-        <button type="submit" class="btn btn-danger">Delete</button>
+      <form action="{{ path_for('admin.guestbook.delete', { 'id': entry.id}) }}" method="POST" onsubmit="return confirm('Soll der Eintrag gelöscht werden?');">
+        <button type="submit" class="btn btn-danger btn-xs">Delete</button>
         {{ csrf.field | raw }}
       </form>
     </p>

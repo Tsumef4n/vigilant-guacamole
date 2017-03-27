@@ -26,7 +26,10 @@ $app->group('', function () {
     $this->get('/admin/shop/new', 'AdminController:getShopNew')->setName('admin.shop.new');
     $this->post('/admin/shop/new', 'AdminController:postShopNew');
     // Kulinarisches Routing
-    $this->get('/admin/kulinarisches[/{id}]', 'AdminController:getKulinarischesList')->setName('admin.kulinarisches');
+    $this->get('/admin/kulinarisches', 'AdminController:getKulinarisches')->setName('admin.kulinarisches');
+    $this->post('/admin/kulinarisches', 'AdminController:postKulinarisches');
+    $this->post('/admin/kulinarisches/new/{month}/{year}', 'AdminController:postKulinarischesNew')->setName('admin.kulinarisches.new');
+    $this->post('/admin/kulinarisches/edit/{id}/{month}/{year}', 'AdminController:postKulinarischesEdit')->setName('admin.kulinarisches.edit');
     // Presse Routing
     $this->get('/admin/press/list', 'AdminController:getPressList')->setName('admin.press.list');
     $this->get('/admin/press/edit/{id}', 'AdminController:getPressEdit')->setName('admin.press.edit');
@@ -34,6 +37,7 @@ $app->group('', function () {
     $this->get('/admin/press/new', 'AdminController:getPressNew')->setName('admin.press.new');
     $this->post('/admin/press/new', 'AdminController:postPressNew');
 
+    $this->post('/admin/guestbook/{id}', 'AdminController:postGuestbookDelete')->setName('admin.guestbook.delete');
     // Nur User sollen User erstellen koennen
     $this->get('/auth/register', 'AuthController:getRegister')->setName('auth.register');
     $this->post('/auth/register', 'AuthController:postRegister');
@@ -55,10 +59,11 @@ $app->get('/impressum', 'HomeController:impressum')->setName('impressum');
 
 $app->get('/news[/{page}]', 'HomeController:news')->setName('news');
 $app->get('/stock[/{id}]', 'ShopController:stock')->setName('stock');
-$app->get('/kulinarisches', 'HomeController:kulinarisches')->setName('kulinarisches');
+$app->get('/kulinarisches', 'HomeController:getKulinarisches')->setName('kulinarisches');
+$app->post('/kulinarisches', 'HomeController:postKulinarisches');
 $app->get('/aboutUs', 'HomeController:aboutUs')->setName('aboutUs');
 $app->get('/press[/{page}]', 'HomeController:press')->setName('press');
-$app->get('/guestbook', 'GuestbookController:getList')->setName('guestbook');
+$app->get('/guestbook[/{page}]', 'GuestbookController:getList')->setName('guestbook');
 $app->post('/guestbook', 'GuestbookController:postNewEntry');
 $app->get('/approach', 'HomeController:approach')->setName('approach');
 
@@ -66,5 +71,7 @@ $app->get('/approach', 'HomeController:approach')->setName('approach');
 //   return $this->view->render($response, 'index.html');
 // });
 $app->get('/onepage', 'HomeController:onepage')->setName('onepage');
+
+$app->get('/picupload', 'HomeController:test')->setName('test');
 
 $app->get('/', 'HomeController:index')->setName('welcome');

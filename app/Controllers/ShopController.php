@@ -11,7 +11,6 @@ class ShopController extends Controller
 {
     public function stock($request, $response, $args)
     {
-        //TODO: Pagination!!!
         $id = 0;
         if (isset($args['id'])) {
             $id = $args['id'];
@@ -21,7 +20,7 @@ class ShopController extends Controller
         }
         //get all categories
         $categories = Category::orderBy('parent')->orderBy('name')->get();
-        //get groups for categories //NOTE: abfragen reduzieren?
+        //get groups for categories
         $cat_groups = Cat_Group::orderBy('name')->get();
 
         $cat_html = self::buildCategory($cat_groups, $categories);

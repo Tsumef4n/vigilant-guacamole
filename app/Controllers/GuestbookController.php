@@ -8,15 +8,22 @@ use Respect\Validation\Validator as v;
 
 class GuestbookController extends Controller
 {
-    public function getList($request, $response)
+    public function getList($request, $response, $args)
     {
+        $page = 1;
+        $perPage = 20;
+        if (isset($args['page'])) {
+            $page = $args['page'];
+        }
+        $offset = ($page - 1) * $perPage;
         //Alle Eintraege holen
-        $guestbook = Guestbook::orderBy('created_at', 'DESC')->get();
-//TODO: Pagination / Ajax?
+        $guestbook = Guestbook::orderBy('created_at', 'DESC')->limit($perPage)->offset($offset)->get();
+
         return $this->container->view->render($response, 'guestbook.twig', [
           'title' => 'Gästebuch',
           'active' => 'guestbook',
           'guestbook' => $guestbook,
+          'page' => $page,
       ]);
     }
 

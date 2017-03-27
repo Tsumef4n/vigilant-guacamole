@@ -6,7 +6,49 @@
       <div class="col-lg-8 col-lg-offset-2">
         <h1>Kulinarisches</h1>
         <div class="site-divider"></div>
-        <p>Hier ist noch nichts</p>
+        <div class="row">
+          <form class="col-sm-8 col-sm-offset-2" action="{{ path_for('kulinarisches') }}" method="post">
+            <fieldset>
+              <div class="form-group">
+                <label>Datum auswählen |
+                </label>
+                <label for="month">Monat</label>
+                <select id="month" name="month">
+                  {% for i in 1..12 %}
+                    {% if sel_month is not empty %}
+                      <option value="{{ i }}" {% if i == sel_month %} selected="selected" {% endif %} %}>{{ i }}</option>
+                    {% else %}
+                      <option value="{{ i }}" {% if i == cur_month %} selected="selected" {% endif %} %}>{{ i }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+
+                <label for="year">Jahr</label>
+                <select id="year" name="year">
+                  {% for i in cur_year..cur_year + 2 %}
+                    <option value="{{ i }}" {% if i == sel_year %} selected="selected" {% endif %}>{{ i }}</option>
+                  {% endfor %}
+                </select>
+                <label>
+                  |
+                </label>
+                <button type="submit" name="btn-send" class="btn btn-success btn-xs">Anzeigen</button>
+              </div>
+            </fieldset>
+            {{ csrf.field | raw }}
+          </form>
+        </div>
+        <div class="row">
+          {% if sel_year is empty %}
+            <p>Bitte Datum auswählen und auf "Anzeigen" klicken</p>
+          {% else %}
+            {% if kulinarisches is empty %}
+              <p>Kein Eintrag gefunden</p>
+            {% else %}
+              <img src="../images/kulinarisches/{{ kulinarisches.year }}-{{ kulinarisches.month }}.{{ kulinarisches.image }}" alt="Bild" width="100%">
+            {% endif %}
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>

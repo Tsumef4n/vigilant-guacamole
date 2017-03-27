@@ -1,0 +1,29 @@
+<div class="row">
+
+  <form class="col-sm-8 col-sm-offset-2" action="{{ path_for('admin.kulinarisches.new', { 'month': sel_month, 'year': sel_year}) }}" method="post" enctype="multipart/form-data">
+    <fieldset>
+      <legend>Neuer Eintrag
+        {{ sel_month }}-{{ sel_year }}</legend>
+
+      <div class="form-group">
+        <label for="file">
+          <span class="glyphicon glyphicon-save"></span>
+          &ensp; Bild hochladen (max. 1MB)
+        </label>
+        <input type="file" id="file" name="file" accept=".bmp, .gif, .jpeg, .jpg, .png"></input>
+        <h4>
+          <span class="label label-default download-pic col-md-pull-1"></span>
+        </h4>
+      </div>
+
+      <div class="form-group text-center">
+        <button type="submit" name="btn-send" class="btn btn-success">Anlegen</button>
+        <a class="btn btn-default btn-danger" href="{{ path_for('admin.press.list') }}">Abbrechen</a>
+      </div>
+
+      {{ csrf.field | raw }}
+    </form>
+
+  </fieldset>
+</form>
+</div>

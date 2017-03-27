@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\News;
 use App\Models\Press;
+use App\Models\Kulinarisches;
 use Slim\Views\Twig as View;
 
 class HomeController extends Controller
@@ -16,11 +17,36 @@ class HomeController extends Controller
     ]);
     }
 
-    public function kulinarisches($request, $response)
+    public function getKulinarisches($request, $response)
     {
+        $cur_month = date('n');
+        $cur_year = date('Y');
+
         return $this->container->view->render($response, 'kulinarisches.twig', [
         'title' => 'Kulinarisches',
         'active' => 'kulinarisches',
+        'cur_month' => $cur_month,
+        'cur_year' => $cur_year,
+    ]);
+    }
+
+    public function postKulinarisches($request, $response)
+    {
+        $cur_month = date('n');
+        $cur_year = date('Y');
+        $sel_month = $request->getParam('month');
+        $sel_year = $request->getParam('year');
+
+        $kulinarisches = Kulinarisches::where('month', $sel_month)->where('year', $sel_year)->get()->first();
+
+        return $this->container->view->render($response, 'kulinarisches.twig', [
+        'title' => 'Kulinarisches',
+        'active' => 'kulinarisches',
+        'cur_month' => $cur_month,
+        'cur_year' => $cur_year,
+        'sel_month' => $sel_month,
+        'sel_year' => $sel_year,
+        'kulinarisches' => $kulinarisches,
     ]);
     }
 
