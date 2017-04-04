@@ -1,16 +1,17 @@
 <?php
+
 return [
     'settings' => [
         // Slim Settings
         'determineRouteBeforeAppMiddleware' => false,
-        'displayErrorDetails' => true,
+        'displayErrorDetails' => false,
 
         // View settings
         'view' => [
-            'template_path' => __DIR__ . '/../templates',
+            'template_path' => __DIR__.'/../templates',
             'twig' => [
-                'cache' => __DIR__ . '/../cache/twig',
-                'debug' => true,
+                'cache' => __DIR__.'/../cache/twig',
+                'debug' => false,
                 'auto_reload' => true,
             ],
         ],
@@ -18,7 +19,7 @@ return [
         // monolog settings
         'logger' => [
             'name' => 'app',
-            'path' => __DIR__ . '/../log/app.log',
+            'path' => __DIR__.'/../log/app.log',
         ],
 
         'db' => [

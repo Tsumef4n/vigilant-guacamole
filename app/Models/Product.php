@@ -15,11 +15,6 @@ class Product extends Model
     'maker_id',
   ];
 
-    public function maker()
-    {
-        return $this->belongsTo('App\Models\Maker', 'maker_id', 'id');
-    }
-
     public function category()
     {
         return $this->belongsTo('App\Models\Category', 'maker_id', 'id');

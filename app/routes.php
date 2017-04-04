@@ -1,12 +1,4 @@
 <?php
-// Routes
-
-// $app->get('/login', function ($request, $response, $args) {
-//     return $this->view->render($response, 'auth/login.twig', [
-//         'title' => "Login",
-//         'active' => "login",
-//     ]);
-// })->setName('login');
 
 use App\Middleware\AuthMiddleware;
 use App\Middleware\GuestMiddleware;
@@ -71,7 +63,5 @@ $app->get('/approach', 'HomeController:approach')->setName('approach');
 //   return $this->view->render($response, 'index.html');
 // });
 $app->get('/onepage', 'HomeController:onepage')->setName('onepage');
-
-$app->get('/picupload', 'HomeController:test')->setName('test');
 
 $app->get('/', 'HomeController:index')->setName('welcome');
